@@ -1,0 +1,86 @@
+<div class="page-layout blank p-24" fusePerfectScrollbar>
+  <h2>Treeview selected keyword</h2>
+  <mat-chip-list #chipList aria-label="Fruit selection">
+    <mat-chip color="primary" selected *ngFor="let item of checklistSelection.selected" [selectable]="selectable"
+             [removable]="removable" (removed)="remove(item)">
+      {{item.name}}
+      <!-- <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon> -->
+    </mat-chip>
+    <!-- <input placeholder="New Keyword..."
+           [matChipInputFor]="chipList"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           [matChipInputAddOnBlur]="addOnBlur"
+           (matChipInputTokenEnd)="add1($event)"> -->
+  </mat-chip-list>
+  <h2>Mannual keyword</h2>
+  <mat-chip-list #chipList aria-label="Fruit selection">
+    <mat-chip *ngFor="let item of fruits" [selectable]="selectable"
+             [removable]="removable" (removed)="remove(item)">
+      {{item.name}}
+      <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+    </mat-chip>
+    <input placeholder="New Keyword..."
+           [matChipInputFor]="chipList"
+           [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+           [matChipInputAddOnBlur]="addOnBlur"
+           (matChipInputTokenEnd)="add($event)">
+  </mat-chip-list>
+
+    <h2>Treeview Sample</h2>
+    <button  type="button" color="accent" (click)="GetTreeResult()">
+        Get Selected Tree Node
+    </button>
+
+    <button  type="button" color="accent" (click)="GetTreeSelectAll()">
+        SelectAll
+    </button>
+    <button  type="button" color="accent" (click)="GetTreeUnSelectAll()">
+        Un Select All
+    </button>
+
+    <button  type="button" color="accent" (click)="NodeExpandAll()">
+       Expand All
+  </button>
+
+  <button  type="button" color="accent" (click)="NodecollapseAll()">
+       collapse All
+  </button>
+    
+    <button  type="button" color="accent" (click)="NodeExpand()">
+        Node Expand Based on ID
+    </button>
+
+    <button  type="button" color="accent" (click)="Nodecollapse()">
+        Node collapse Based on ID
+    </button>
+
+    <button  type="button" color="accent" (click)="PrSelectedTreeview()">
+        Node Select & Unselect Based on ID 
+    </button>
+    <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+        <!-- This is the tree node template for leaf nodes -->
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+          <!-- use a disabled button to provide padding for tree leaf -->
+          <button mat-icon-button disabled></button>
+          <!-- {{node.name}} -->
+          <mat-checkbox class="checklist-leaf-node" 
+          [checked]="checklistSelection.isSelected(node)"
+(change)="todoLeafItemSelectionToggle(node)">{{node.name}} AA</mat-checkbox>
+        </mat-tree-node>
+        <!-- This is the tree node template for expandable nodes -->
+        <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+          <button mat-icon-button matTreeNodeToggle
+                  [attr.aria-label]="'toggle ' + node.name">
+            <mat-icon class="mat-icon-rtl-mirror">
+              {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+            </mat-icon>
+          </button>
+          <!-- {{node.name}} -->
+
+          <mat-checkbox [checked]="descendantsAllSelected(node)" 
+          [indeterminate]="descendantsPartiallySelected(node)"
+          (change)="todoItemSelectionToggle(node)">{{node.name}} BB</mat-checkbox>
+        </mat-tree-node>
+      </mat-tree>
+
+</div>

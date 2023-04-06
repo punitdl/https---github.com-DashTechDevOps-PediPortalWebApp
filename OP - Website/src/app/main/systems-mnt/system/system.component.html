@@ -1,0 +1,578 @@
+<div id="system" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header accent" fxLayout="row" fxLayoutAlign="space-between center">
+
+            <!-- APP TITLE -->
+            <div fxLayout="row" fxLayoutAlign="start center">
+
+                <button mat-icon-button class="mr-0 mr-sm-16" [routerLink]="'/systems-mnt'">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+
+                <div class="system-image mr-8 mr-sm-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    <img *ngIf="system.images[0]" [src]="system.images[0].url">
+                    <img *ngIf="!system.images[0]" [src]="'assets/images/ecommerce/product-image-placeholder.png'">
+                </div>
+
+                <div fxLayout="column" fxLayoutAlign="start start"
+                    [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    <div class="h2" *ngIf="pageType ==='edit'">
+                        {{system.SystemName}}
+                    </div>
+                    <div class="h2" *ngIf="pageType ==='new'">
+                        New System
+                    </div>
+                    <div class="subtitle secondary-text">
+                        <span>System Detail</span>
+                    </div>
+                </div>
+            </div>
+            <!-- / APP TITLE -->
+
+            <!-- <button mat-raised-button class="save-system-button" [disabled]="systemForm.invalid"
+                *ngIf="pageType ==='new'" (click)="addSystem()">
+                <span>ADD</span>
+            </button>-->
+
+            <button mat-raised-button class="save-system-button" *ngIf="pageType ==='edit'" (click)="saveSystem()"
+                disabled="true">
+                <span>SAVE</span>
+            </button>
+        </div>
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <!-- CONTENT -->
+            <div class="content">
+                <form name="systemForm" [formGroup]="systemForm" class="system w-100-p" fxLayout="column" fxFlex>
+
+                    <mat-tab-group>
+
+                        <mat-tab label="Basic Info">
+
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                                <div fxLayout="row" fxLayoutAlign="space-between">
+
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="45">
+                                        <mat-label>System Name</mat-label>
+                                        <input matInput placeholder="System Name" name="SystemName"
+                                            formControlName="SystemName" required>
+                                    </mat-form-field>
+
+                                    <mat-form-field appearance="outline" floatLabel="always" fxFlex="45">
+                                        <mat-label>Brand</mat-label>
+                                        <mat-select formControlName="BrandID" required multiple disabled>
+                                            <mat-option *ngFor="let data of CategoryListItems" [value]="data.BrandID">
+                                                {{ data.BrandName }}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
+
+
+
+                                </div>
+
+
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>System Description</mat-label>
+                                    <textarea matInput placeholder="System Description" name="SystemDescription"
+                                        formControlName="SystemDescription" rows="5">
+                                    </textarea>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Image URL</mat-label>
+                                    <input matInput placeholder="Image URL" name="ImageURL" formControlName="ImageURL">
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>System Image</mat-label>
+                                    <input style="display: none" type="file" (change)="onFileChanged($event)"
+                                        #fileInput>
+                                    <button mat-raised-button (click)="fileInput.click()"
+                                        class="add-system-button fuse-white mt-24 mt-md-0">
+                                        <span>Browse</span>
+                                    </button>
+
+                                    <button mat-raised-button style="display: none; float: right;"
+                                        (click)="onUpload()">Upload!</button>
+
+                                    <input matInput placeholder="System Name" style="display: none;" name="sytemname"
+                                        formControlName="SystemName" required>
+
+
+                                </mat-form-field>
+                                <div *ngIf="ImageURLNew && ImageURLNew !== ''">
+                                    <img [src]="ImageURLNew" width="250px" class="system-avatar huge m-0" [alt]="" />
+                                </div>
+
+
+                            </div>
+
+
+
+
+
+                        </mat-tab>
+
+                        <mat-tab label="Documents">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+                                <div formArrayName="SystemResource"
+                                    *ngFor="let documentnew of systemForm.get('SystemResource')['controls']; let i = index"
+                                    class="form-group">
+                                    <div [formGroupName]="i">
+                                        <div fxLayout="row" fxLayoutAlign="start auto" fxFlex="1 0">
+                                            <mat-form-field appearance="outline" fxFlex="20" class="pr-5">
+                                                <mat-label>Type</mat-label>
+                                                <mat-select formControlName="ResourceTypeID">
+                                                    <mat-option *ngFor="let data of TypeListItems"
+                                                        [value]="data.ResourceTypeID">
+                                                        {{ data.ResourceTypeName }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+
+                                            <mat-form-field appearance="outline" fxFlex="20" class="pr-5">
+                                                <mat-label>Name</mat-label>
+                                                <input matInput formControlName="ResourceTypeName">
+                                            </mat-form-field>
+
+                                            <mat-form-field appearance="outline" fxFlex="20" class="pr-5">
+                                                <mat-label>URL</mat-label>
+                                                <input matInput formControlName="ResourceURL">
+                                            </mat-form-field>
+
+                                            <mat-form-field appearance="outline" fxFlex="20" class="pr-5">
+                                                <mat-label>DocumentID</mat-label>
+                                                <input matInput formControlName="DocumentID" readonly="true">
+                                            </mat-form-field>
+
+
+                                            <mat-form-field appearance="outline" fxFlex="20" class="pr-5">
+                                                <mat-slide-toggle formControlName="Sharable">Share</mat-slide-toggle>
+                                                <input matInput formControlName="ResourceURL" style="display: none;">
+                                                <!-- <a>
+                                                    <mat-icon class="logo-icon mr-16" style="color: red;float: right;"
+                                                        (click)="removeButtonClick(i,documentnew)"
+                                                        [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                                                        delete_forever
+                                                    </mat-icon>
+                                                </a> -->
+                                            </mat-form-field>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <!-- <button type="button" class="btn btn-primary" (click)="addButtonClick()">  
+                                    Add More Row  
+                                </button>  -->
+                                <button mat-raised-button class="add-system-button fuse-accent mt-24 mt-md-0"
+                                    (click)="addDocumentClick()">
+                                    <span>Add More Row</span>
+                                </button>
+                                <button mat-raised-button style="float: right;" disabled="true"
+                                    class="add-system-button fuse-accent mt-24 mt-md-0" (click)="GetDocFromList()">
+                                    <span>Save</span>
+                                </button>
+                            </div>
+                            <!-- <div class="tab-content p-24" fusePerfectScrollbar>
+                                <div formArrayName="DocumentsData">
+                                    <div *ngFor="let item of DocumentsData; let pointIndex=index"
+                                        [formGroupName]="pointIndex">
+                                        <div fxLayout="row" fxLayoutAlign="start auto" fxFlex="1 0 auto">
+                                            <mat-form-field appearance="outline" fxFlex="25" class="pr-4">
+                                                <mat-label>Type</mat-label>
+                                                <mat-select formControlName="ResourceTypeID" >
+                                                <mat-option *ngFor="let data of TypeListItems" [value]="data.ResourceTypeID">
+                                                        {{ data.ResourceTypeName }}</mat-option>
+                                                </mat-select>
+                                            </mat-form-field>
+
+                                            <mat-form-field appearance="outline" fxFlex="25" class="pr-4">
+                                                <mat-label>Name</mat-label>
+                                                <input matInput [(ngModel)]="item.ResourceTypeName" >
+                                            </mat-form-field>
+
+
+                                            <mat-form-field appearance="outline" fxFlex="25" class="pr-4">
+                                                <mat-label>URL</mat-label>
+                                                <input matInput formControlName="ResourceURL"  >
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" fxFlex="20" class="pr-4">
+                                                <mat-slide-toggle formControlName="Sharable">Share</mat-slide-toggle>
+                                                <input matInput formControlName="ResourceURL" style="display: none;">
+                                            </mat-form-field>
+                                            <mat-form-field appearance="outline" fxFlex="5" class="pr-4">
+                                                <mat-icon class="logo-icon mr-16" style="color: red;"  (click)="removeContact(pointIndex)"
+                          [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">delete_forever
+                </mat-icon>
+                                                <input matInput formControlName="ResourceURL" style="display: none;">
+                                            </mat-form-field>
+                                         
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <button mat-raised-button class="add-system-button fuse-accent mt-24 mt-md-0" (click)="addContact()">
+                                    <span>Add More Row</span>
+                                </button>
+                                
+
+                            </div>
+                             -->
+                        </mat-tab>
+
+
+                        <mat-tab label="Disease & Procedures">
+
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Anatomy</mat-label>
+                                    <mat-select formControlName="AnatomyID" required multiple>
+
+                                        <mat-option *ngFor="let data of AnatomyListItems" [value]="data.AnatomyID">
+                                            {{ data.AnatomyName }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Disease </mat-label>
+                                    <mat-select formControlName="DiseaseID" required multiple>
+                                        <mat-option *ngFor="let data of DiseaseListItems" [value]="data.DiseaseID">
+                                            {{ data.DiseaseName }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Procedures</mat-label>
+                                    <mat-select formControlName="ProcedureID" required multiple>
+                                        <mat-option *ngFor="let data of ProcedureListItems" [value]="data.ProcedureID">
+                                            {{ data.ProcedureName }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+
+
+                            </div>
+                        </mat-tab>
+
+                        <mat-tab label="Training Material">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                <!-- 
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Source</mat-label>
+                                    <mat-select [(value)]="selectedSource"
+                                        (selectionChange)="OnSourceChange($event.value)">
+                                        <mat-option value="">Select Training Source</mat-option>
+                                        <mat-option *ngFor="let data of SourceListItems"
+                                            [value]="data.TrainingSourceID">{{ data.TrainingSourceName }}</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                                <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                    <mat-label>Title</mat-label>
+                                    <mat-select formControlName="TrainingMaterialID" multiple>
+                                        <mat-option *ngFor="let data of SourceTitleListItems"
+                                            [value]="data.TrainingMaterialID">{{ data.TrainingMaterialName }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field> -->
+                                <button mat-raised-button class="add-system-button fuse-accent mt-24 mt-md-0"
+                                    (click)="Training_popup()">
+                                    <span>Add Training</span>
+                                </button>
+                                <div fxLayout="row wrap" fxLayoutAlign="start start">
+
+
+
+
+                                    <table class="simple">
+                                        <thead>
+                                            <tr>
+                                                <th>Resource</th>
+                                                <th>Title</th>
+                                                <th>URL</th>
+                                                <!-- <th>Remove</th> -->
+                                            </tr>
+                                        </thead>
+                                        <tbody formArrayName="SystemTrainingMaterial"
+                                            *ngFor="let SystemTrainingMaterial of systemForm.get('SystemTrainingMaterial')['controls']; let i = index"
+                                            class="form-group">
+                                            <tr [formGroupName]="i">
+                                                <td>
+                                                    <div fxLayout="row" fxLayoutAlign="start auto">
+                                                        <input disabled formControlName="TrainingSourceName">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div fxLayout="row" fxLayoutAlign="start auto">
+                                                        <input disabled formControlName="TrainingMaterialName">
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div fxLayout="row wrap" fxLayoutAlign="start auto">
+                                                        <input disabled formControlName="LinkURL">
+                                                    </div>
+                                                </td>
+                                                <!-- <td>
+                                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                                        <button mat-raised-button
+                                                            class="add-system-button fuse-accent mt-24 mt-md-0"
+                                                            (click)="removeTrainingClick()">
+                                                            <span>Remove</span>
+                                                        </button>
+                                                    </div>
+                                                </td> -->
+
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </mat-tab>
+                        <mat-tab label="Product">
+                            <div class="tab-content p-24" fusePerfectScrollbar>
+                                <div formArrayName="Product"
+                                    *ngFor="let Product of systemForm.get('Product')['controls']; let i = index"
+                                    class="form-group">
+                                    <div [formGroupName]="i">
+
+                                    </div>
+                                </div>
+
+                                <div fxLayout="row wrap" fxLayoutAlign="start start">
+                                    <table class="simple">
+                                        <thead>
+                                            <tr>
+                                                <th style="width: 10%;"></th>
+                                                <th style="width: 35%;">Product Name</th>
+                                                <th style="width: 35%;">Brand Name</th>
+                                                <th style="width: 10%;">Resource</th>
+                                                <th style="width: 10%;">Training Material</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody formArrayName="Product"
+                                            *ngFor="let Product of systemForm.get('Product')['controls']; let i = index"
+                                            class="form-group">
+
+                                            <tr [formGroupName]="i">
+                                                <td style="width: 10%;">
+                                                    <div class="system-image mr-8 mr-sm-16"
+                                                        [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                                                        <img *ngIf="Product.controls.ImageURL.value != null"
+                                                            [src]="Product.controls.ImageURL.value">
+                                                        <img *ngIf="Product.controls.ImageURL.value == null"
+                                                            [src]="'https://www.orthopediatrics.com/images/uploads/products/cover_b.png'">
+                                                    </div>
+                                                </td>
+                                                <td style="width: 35%;">
+                                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                                        <input disabled class="name text-truncate"
+                                                            formControlName="ProductName">
+                                                    </div>
+                                                </td>
+                                                <td style="width: 35%;">
+                                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                                        <input disabled class="name text-truncate"
+                                                            formControlName="BrandName">
+                                                    </div>
+                                                </td>
+                                                <td style="width: 10%;">
+                                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                                        <input disabled class="name text-truncate"
+                                                            formControlName="ResourceCount">
+                                                    </div>
+                                                </td>
+                                                <td style="width: 10%;">
+                                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                                        <input disabled class="name text-truncate"
+                                                            formControlName="TrainingMaterialCount">
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <!-- </div> -->
+
+                                            <!-- <tr>
+                                                <td>
+                                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                                        <span class="name text-truncate">PediLoc@ Tibia Locking Plate
+                                                            System </span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                                        <span class="name text-truncate">Trauma & Deformity </span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <mat-icon class="active-icon green-600 s-16">check</mat-icon>
+                                                </td>
+                                                <td>
+                                                    <mat-icon class="active-icon green-600 s-16">check</mat-icon>
+                                                </td>
+                                                <td>
+                                                    <mat-icon class="active-icon red-600 s-16">close</mat-icon>
+                                                </td>
+                                                <td>
+                                                    <ng-container matColumnDef="buttons">
+                                                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                                        <mat-cell>
+                                                            <div fxFlex="row" fxLayoutAlign="end center">
+
+
+                                                                <button mat-icon-button [matMenuTriggerFor]="moreMenu"
+                                                                    aria-label="More"
+                                                                    (click)="$event.stopPropagation();">
+                                                                    <mat-icon class="secondary-text">more_vert
+                                                                    </mat-icon>
+                                                                </button>
+
+                                                                <mat-menu #moreMenu="matMenu">
+                                                                    <button mat-menu-item aria-label="Edit">
+                                                                        <mat-icon>edit</mat-icon>
+                                                                        <span>Edit</span>
+                                                                    </button>
+                                                                </mat-menu>
+                                                            </div>
+
+                                                        </mat-cell>
+                                                    </ng-container>
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                                        <span class="name text-truncate">PediLoc® Femur Locking Plate
+                                                            System</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                                        <span class="name text-truncate">Trauma & Deformity</span>
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <mat-icon class="active-icon green-600 s-16">check</mat-icon>
+                                                </td>
+                                                <td>
+                                                    <mat-icon class="active-icon green-600 s-16">check</mat-icon>
+                                                </td>
+                                                <td>
+                                                    <mat-icon class="active-icon red-600 s-16">close</mat-icon>
+                                                </td>
+                                                <td>
+                                                    <ng-container matColumnDef="buttons">
+                                                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                                        <mat-cell>
+                                                            <div fxFlex="row" fxLayoutAlign="end center">
+
+
+                                                                <button mat-icon-button [matMenuTriggerFor]="moreMenu"
+                                                                    aria-label="More"
+                                                                    (click)="$event.stopPropagation();">
+                                                                    <mat-icon class="secondary-text">more_vert
+                                                                    </mat-icon>
+                                                                </button>
+
+                                                                <mat-menu #moreMenu="matMenu">
+                                                                    <button mat-menu-item aria-label="Edit">
+                                                                        <mat-icon>edit</mat-icon>
+                                                                        <span>Edit</span>
+                                                                    </button>
+                                                                </mat-menu>
+                                                            </div>
+
+                                                        </mat-cell>
+                                                    </ng-container>
+
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                                        <span class="name text-truncate">PediLoc® Extension Osteotomy
+                                                            Plate (PLEO)</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div fxLayout="row" fxLayoutAlign="start center">
+                                                        <span class="name text-truncate">Trauma & Deformity</span>
+                                                    </div>
+                                                </td>
+
+                                                <td>
+                                                    <mat-icon class="active-icon green-600 s-16">check</mat-icon>
+                                                </td>
+                                                <td>
+                                                    <mat-icon class="active-icon red-600 s-16">close</mat-icon>
+                                                </td>
+                                                <td>
+                                                    <mat-icon class="active-icon red-600 s-16">close</mat-icon>
+                                                </td>
+                                                <td>
+                                                    <ng-container matColumnDef="buttons">
+                                                        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                                                        <mat-cell>
+                                                            <div fxFlex="row" fxLayoutAlign="end center">
+
+
+                                                                <button mat-icon-button [matMenuTriggerFor]="moreMenu"
+                                                                    aria-label="More"
+                                                                    (click)="$event.stopPropagation();">
+                                                                    <mat-icon class="secondary-text">more_vert
+                                                                    </mat-icon>
+                                                                </button>
+
+                                                                <mat-menu #moreMenu="matMenu">
+                                                                    <button mat-menu-item aria-label="Edit">
+                                                                        <mat-icon>edit</mat-icon>
+                                                                        <span>Edit</span>
+                                                                    </button>
+                                                                </mat-menu>
+                                                            </div>
+
+                                                        </mat-cell>
+                                                    </ng-container>
+
+                                                </td>
+                                            </tr> -->
+                                        </tbody>
+                                    </table>
+
+
+                                </div>
+                            </div>
+
+                        </mat-tab>
+
+
+                    </mat-tab-group>
+
+                </form>
+
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CONTENT CARD -->
+
+    </div>
+    <!-- / CENTER -->
+
+</div>

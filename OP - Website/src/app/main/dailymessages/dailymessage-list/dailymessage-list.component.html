@@ -1,0 +1,83 @@
+<mat-table #table [dataSource]="dataSource"
+           [@animateStagger]="{value:'50'}">
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="checkbox">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let dailymessage">
+            <mat-checkbox [(ngModel)]="checkboxes[dailymessage.MessageID]" (ngModelChange)="onSelectedChange(dailymessage.MessageID)"
+                          (click)="$event.stopPropagation()">
+            </mat-checkbox>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Avatar Column -->
+   <ng-container matColumnDef="ImageURL">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let dailymessage">
+            <img class="avatar" *ngIf="dailymessage.ImageURL" [alt]="dailymessage.message"
+                 [src]="dailymessage.ImageURL"  disabled/>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="FromDate">
+        <mat-header-cell *matHeaderCellDef>Update Date</mat-header-cell>
+        <mat-cell *matCellDef="let dailymessage">
+            <p class="text-truncate font-weight-600">{{dailymessage.FromDate  | date: 'MM/dd/yyyy'}} </p>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ToDate">
+        <mat-header-cell *matHeaderCellDef>Down Date  </mat-header-cell>
+        <mat-cell *matCellDef="let dailymessage">
+            <p class="UpdateDate text-truncate font-weight-600">{{dailymessage.ToDate  | date: 'MM/dd/yyyy'}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="Message">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Message</mat-header-cell>
+        <mat-cell *matCellDef="let dailymessage" fxHide fxShow.gt-sm>
+            <p class="email">
+                {{dailymessage.Message}}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+
+    <!-- Buttons Column -->
+    <ng-container matColumnDef="buttons">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let dailymessage">
+            <div fxFlex="row" fxLayoutAlign="end center">
+                <!-- <button mat-icon-button (click)="$event.stopPropagation();toggleStar(dailymessage.id)" aria-label="Toggle star">
+                    <mat-icon class="amber-fg" *ngIf="user.starred.includes(dailymessage.id)">star</mat-icon>
+                    <mat-icon class="secondary-text" *ngIf="!user.starred.includes(dailymessage.id)">star_border</mat-icon>
+                </button> -->
+
+                <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
+                        (click)="$event.stopPropagation();">
+                    <mat-icon class="secondary-text">more_vert</mat-icon>
+                </button>
+
+                <mat-menu #moreMenu="matMenu">
+                    <button mat-menu-item aria-label="remove" (click)="deleteDailymessage(dailymessage)">
+                        <mat-icon>delete</mat-icon>
+                        <span>Remove</span>
+                    </button>
+                </mat-menu>
+            </div>
+
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let dailymessage; columns: displayedColumns;"
+             class="dailymessage"
+             (click)="editDailymessage(dailymessage)"
+             [ngClass]="{'accent-50':checkboxes[dailymessage.MessageID]}"
+             [@animate]="{value:'*',params:{y:'100%'}}">
+    </mat-row>
+</mat-table>
+
+

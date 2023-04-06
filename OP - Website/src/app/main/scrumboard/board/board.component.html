@@ -1,0 +1,80 @@
+<mat-sidenav-container>
+
+    <div id="board">
+
+        <!-- HEADER -->
+        <div class="header accent p-16 p-sm-24" fxLayout="column" fxLayoutAlign="start" fxLayout.gt-xs="row"
+        fxLayoutAlign.gt-xs="space-between center">
+
+        <!-- APP TITLE -->
+        <div class="header accent p-16 p-sm-24" fxLayout="row" fxLayoutAlign="start center">
+
+          
+
+            <div class="logo" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    assignment_turned_in
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    On-Boarding Task
+                </span>
+            </div>
+
+        </div>
+        <!-- / APP TITLE -->
+
+        <!-- SEARCH -->
+        <div class="ml-sm-32" fxLayout="row" fxLayoutAlign="center center" fxFlex>
+
+            <div class="search-wrapper mt-16 mt-sm-0">
+
+                <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center">
+                    <mat-icon [style.color]="'gray'">search</mat-icon>
+                    <input placeholder="Search Task ">
+                </div>
+
+            </div>
+
+        </div>
+        <!-- / SEARCH -->
+
+
+    </div>
+        <!-- / HEADER -->
+
+        <div fxFlex class="board-content-wrapper p-16 p-md-24">
+
+            <!-- BOARD -->
+            <div class="board-content ngx-dnd-container p-16 p-md-24" fxLayout="row"
+                 ngxDroppable="list" [model]="board.lists" (out)="onDrop($event)"
+                 [@animateStagger]="{value:'50'}">
+
+                <!-- LIST -->
+                <scrumboard-board-list
+                    class="scrumboard-board-list list-wrapper ngx-dnd-item"
+                    ngxDraggable
+                    *ngFor="let list of board.lists"
+                    [model]="list"
+                    [list]="list"
+                    [@animate]="{value:'*',params:{duration:'350ms',x:'100%'}}">
+                </scrumboard-board-list>
+                <!-- / LIST -->
+
+                <!-- NEW LIST BUTTON-->
+                <scrumboard-board-add-list class="new-list-wrapper" (listAdded)="onListAdd($event)"
+                                           ngxDraggable [moves]="false"
+                                           [@animate]="{value:'*',params:{duration:'350ms',x:'100%'}}">
+                </scrumboard-board-add-list>
+                <!-- / NEW LIST BUTTON-->
+
+            </div>
+            <!-- / BOARD -->
+        </div>
+        <!-- primary content -->
+    </div>
+
+    <mat-sidenav #settingsSidenav position="end">
+        <scrumboard-board-settings></scrumboard-board-settings>
+    </mat-sidenav>
+
+</mat-sidenav-container>

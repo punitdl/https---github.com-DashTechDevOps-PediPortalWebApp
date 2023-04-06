@@ -1,0 +1,431 @@
+export class ScrumboardFakeDb
+{
+    public static boards = [
+        {
+            'id'      : '32gfhaf2',
+            'name'    : 'Week - 1',
+            'uri'     : 'acme-frontend-application',
+            'settings': {
+                'color'          : 'fuse-dark',
+                'subscribed'     : false,
+                'cardCoverImages': true
+            },
+            'lists'   : [
+               
+                {
+                    'id'     : 'ce79eeeea',
+                    'name'   : 'Order Bussiness Cards(Distributor)',
+                    'idCards': [
+                        'acc6.9c673cd2f5e35.521e91d8d5991.4b2a95e0539d1.027930c0743c5.7ad1ea7bea476.e8fbe6347'
+                    ]
+                },
+                {
+                    'id'     : 'ce79eeeea',
+                    'name'   : 'OPU Module - Anatomy',
+                    'idCards': [
+                        'acc6.9c673cd2f5e35.521e91d8d5991.4b2a95e0539d1.027930c0743c5.7ad1ea7bea476.e8fbe6347'
+                    ]
+                },
+                {
+                    'id'     : 'ce79eeeea',
+                    'name'   : 'Practice back table setups',
+                    'idCards': [
+                        'acc6.9c673cd2f5e35.521e91d8d5991.4b2a95e0539d1.027930c0743c5.7ad1ea7bea476.e8fbe6347'
+                    ]
+                }
+            ],
+            'cards'   : [
+                {
+                    'id'               : '3279.3d69b40cc0b75.690252b6bea08.1e1789b0b7c2e.2f264b8661ce2.84d5f56910e23.429be5e8a',
+                    'name'             : 'Rep 2 Category',
+                    'description'      : '',
+                    'idAttachmentCover': '',
+                    'idMembers'        : [
+                        '26027s1930450d8bf7b10828'
+                    ],
+                    'idLabels'         : [
+                        '26022e4129ad3a5sc28b36cd'
+                    ],
+                    'attachments'      : [],
+                    'subscribed'       : false,
+                    'checklists'       : [],
+                    'checkItems'       : 0,
+                    'checkItemsChecked': 0,
+                    'comments'         : [
+                        {
+                            'idMember': '36027j1930450d8bf7b10158',
+                            'message' : 'This should be a medium priority bug, shouldn\'t it?',
+                            'time'    : 'now'
+                        }
+                    ],
+                    'activities'       : [],
+                    'due'              : null
+                },
+                {
+                    'id'               : '7987.9740ba532b0d4.f9d12243f7362.507c0738dc561.87fba0a03df6e.75e6508cacf10.7a9835b54',
+                    'name'             : 'API recover and monitoring',
+                    'description'      : 'We need a service to monitor and recover failed APIs.',
+                    'idAttachmentCover': '',
+                    'idMembers'        : [
+                        '36027j1930450d8bf7b10158',
+                        '76027g1930450d8bf7b10958'
+                    ],
+                    'idLabels'         : [
+                        '26022e4129ad3a5sc28b36cd',
+                        '5640635e19ad3a5dc21416b2'
+                    ],
+                    'attachments'      : [],
+                    'subscribed'       : true,
+                    'checklists'       : [
+                        {
+                            'id'               : '6926.2b31d119e4a.889401e0ca7a0.13ad8ce2e569d.976e54e8b5d87.456afccd7e820.d6c77106a',
+                            'name'             : 'API Monitoring',
+                            'checkItemsChecked': 2,
+                            'checkItems'       : [
+                                {
+                                    'name'   : 'Simple dashboard design',
+                                    'checked': false
+                                },
+                                {
+                                    'name'   : 'Should be able to see different time periods on the same dashboard',
+                                    'checked': true
+                                },
+                                {
+                                    'name'   : 'Different colors for different clusters',
+                                    'checked': true
+                                }
+                            ]
+                        },
+                        {
+                            'id'               : '7c22.5261c7924387f.248e8b1d32205.003f7a9f501d1.1d48dcdbe8b23.8099dcc5f75a7.29a966196',
+                            'name'             : 'API Recovery',
+                            'checkItemsChecked': 1,
+                            'checkItems'       : [
+                                {
+                                    'name'   : 'Warning notifications to all developers',
+                                    'checked': false
+                                },
+                                {
+                                    'name'   : 'Immediate recovery options attached to the notifications',
+                                    'checked': true
+                                },
+                                {
+                                    'name'   : 'Backups every 6hours',
+                                    'checked': false
+                                }
+                            ]
+                        }
+                    ],
+                    'checkItems'       : 6,
+                    'checkItemsChecked': 3,
+                    'comments'         : [],
+                    'activities'       : [],
+                    'due'              : '2017-02-02T11:20:34.000Z'
+                }
+            ],
+            'members' : [
+                {
+                    'id'    : '56027c1930450d8bf7b10758',
+                    'name'  : 'Alice Freeman',
+                    'avatar': 'assets/images/avatars/alice.jpg'
+                }
+            ],
+            'labels'  : [
+                {
+                    'id'   : '26022e4129ad3a5sc28b36cd',
+                    'name' : 'High Priority',
+                    'color': 'red-500'
+                },
+                {
+                    'id'   : '6540635g19ad3s5dc31412b2',
+                    'name' : 'Feature',
+                    'color': 'green-400'
+                }
+            ]
+        },
+        {
+            'id'      : '32gfhaf22',
+            'name'    : 'Week - 2',
+            'uri'     : 'acme-frontend-application',
+            'settings': {
+                'color'          : 'fuse-dark',
+                'subscribed'     : false,
+                'cardCoverImages': true
+            },
+            'lists'   : [
+               
+                {
+                    'id'     : 'ce79eeeea',
+                    'name'   : 'Tour Hospitals',
+                    'idCards': [
+                        'acc6.9c673cd2f5e35.521e91d8d5991.4b2a95e0539d1.027930c0743c5.7ad1ea7bea476.e8fbe6347'
+                    ]
+                },
+                {
+                    'id'     : 'ce79eeeea',
+                    'name'   : 'OPU Module',
+                    'idCards': [
+                        'acc6.9c673cd2f5e35.521e91d8d5991.4b2a95e0539d1.027930c0743c5.7ad1ea7bea476.e8fbe6347'
+                    ]
+                },
+                {
+                    'id'     : 'ce79eeeea',
+                    'name'   : 'Practice back table setups',
+                    'idCards': [
+                        'acc6.9c673cd2f5e35.521e91d8d5991.4b2a95e0539d1.027930c0743c5.7ad1ea7bea476.e8fbe6347'
+                    ]
+                }
+            ],
+            'cards'   : [
+                {
+                    'id'               : '3279.3d69b40cc0b75.690252b6bea08.1e1789b0b7c2e.2f264b8661ce2.84d5f56910e23.429be5e8a',
+                    'name'             : 'Rep 2 Category',
+                    'description'      : '',
+                    'idAttachmentCover': '',
+                    'idMembers'        : [
+                        '26027s1930450d8bf7b10828'
+                    ],
+                    'idLabels'         : [
+                        '26022e4129ad3a5sc28b36cd'
+                    ],
+                    'attachments'      : [],
+                    'subscribed'       : false,
+                    'checklists'       : [],
+                    'checkItems'       : 0,
+                    'checkItemsChecked': 0,
+                    'comments'         : [
+                        {
+                            'idMember': '36027j1930450d8bf7b10158',
+                            'message' : 'This should be a medium priority bug, shouldn\'t it?',
+                            'time'    : 'now'
+                        }
+                    ],
+                    'activities'       : [],
+                    'due'              : null
+                },
+                {
+                    'id'               : '7987.9740ba532b0d4.f9d12243f7362.507c0738dc561.87fba0a03df6e.75e6508cacf10.7a9835b54',
+                    'name'             : 'API recover and monitoring',
+                    'description'      : 'We need a service to monitor and recover failed APIs.',
+                    'idAttachmentCover': '',
+                    'idMembers'        : [
+                        '36027j1930450d8bf7b10158',
+                        '76027g1930450d8bf7b10958'
+                    ],
+                    'idLabels'         : [
+                        '26022e4129ad3a5sc28b36cd',
+                        '5640635e19ad3a5dc21416b2'
+                    ],
+                    'attachments'      : [],
+                    'subscribed'       : true,
+                    'checklists'       : [
+                        {
+                            'id'               : '6926.2b31d119e4a.889401e0ca7a0.13ad8ce2e569d.976e54e8b5d87.456afccd7e820.d6c77106a',
+                            'name'             : 'API Monitoring',
+                            'checkItemsChecked': 2,
+                            'checkItems'       : [
+                                {
+                                    'name'   : 'Simple dashboard design',
+                                    'checked': false
+                                },
+                                {
+                                    'name'   : 'Should be able to see different time periods on the same dashboard',
+                                    'checked': true
+                                },
+                                {
+                                    'name'   : 'Different colors for different clusters',
+                                    'checked': true
+                                }
+                            ]
+                        },
+                        {
+                            'id'               : '7c22.5261c7924387f.248e8b1d32205.003f7a9f501d1.1d48dcdbe8b23.8099dcc5f75a7.29a966196',
+                            'name'             : 'API Recovery',
+                            'checkItemsChecked': 1,
+                            'checkItems'       : [
+                                {
+                                    'name'   : 'Warning notifications to all developers',
+                                    'checked': false
+                                },
+                                {
+                                    'name'   : 'Immediate recovery options attached to the notifications',
+                                    'checked': true
+                                },
+                                {
+                                    'name'   : 'Backups every 6hours',
+                                    'checked': false
+                                }
+                            ]
+                        }
+                    ],
+                    'checkItems'       : 6,
+                    'checkItemsChecked': 3,
+                    'comments'         : [],
+                    'activities'       : [],
+                    'due'              : '2017-02-02T11:20:34.000Z'
+                }
+            ],
+            'members' : [
+                {
+                    'id'    : '56027c1930450d8bf7b10758',
+                    'name'  : 'Alice Freeman',
+                    'avatar': 'assets/images/avatars/alice.jpg'
+                }
+            ],
+            'labels'  : [
+                {
+                    'id'   : '26022e4129ad3a5sc28b36cd',
+                    'name' : 'High Priority',
+                    'color': 'red-500'
+                },
+                {
+                    'id'   : '6540635g19ad3s5dc31412b2',
+                    'name' : 'Feature',
+                    'color': 'green-400'
+                }
+            ]
+        },
+        {
+            'id'      : '32gfhaf33',
+            'name'    : 'Week - 3',
+            'uri'     : 'acme-frontend-application',
+            'settings': {
+                'color'          : 'fuse-dark',
+                'subscribed'     : false,
+                'cardCoverImages': true
+            },
+            'lists'   : [
+               
+                {
+                    'id'     : 'ce79eeeea',
+                    'name'   : 'Order Bussiness Cards ',
+                    'idCards': [
+                        'acc6.9c673cd2f5e35.521e91d8d5991.4b2a95e0539d1.027930c0743c5.7ad1ea7bea476.e8fbe6347'
+                    ]
+                },
+                {
+                    'id'     : 'ce79eeeea',
+                    'name'   : 'OPU Module',
+                    'idCards': [
+                        'acc6.9c673cd2f5e35.521e91d8d5991.4b2a95e0539d1.027930c0743c5.7ad1ea7bea476.e8fbe6347'
+                    ]
+                },
+                {
+                    'id'     : 'ce79eeeea',
+                    'name'   : 'Practice back table setups',
+                    'idCards': [
+                        'acc6.9c673cd2f5e35.521e91d8d5991.4b2a95e0539d1.027930c0743c5.7ad1ea7bea476.e8fbe6347'
+                    ]
+                }
+            ],
+            'cards'   : [
+                {
+                    'id'               : '3279.3d69b40cc0b75.690252b6bea08.1e1789b0b7c2e.2f264b8661ce2.84d5f56910e23.429be5e8a',
+                    'name'             : 'Rep 2 Category',
+                    'description'      : '',
+                    'idAttachmentCover': '',
+                    'idMembers'        : [
+                        '26027s1930450d8bf7b10828'
+                    ],
+                    'idLabels'         : [
+                        '26022e4129ad3a5sc28b36cd'
+                    ],
+                    'attachments'      : [],
+                    'subscribed'       : false,
+                    'checklists'       : [],
+                    'checkItems'       : 0,
+                    'checkItemsChecked': 0,
+                    'comments'         : [
+                        {
+                            'idMember': '36027j1930450d8bf7b10158',
+                            'message' : 'This should be a medium priority bug, shouldn\'t it?',
+                            'time'    : 'now'
+                        }
+                    ],
+                    'activities'       : [],
+                    'due'              : null
+                },
+                {
+                    'id'               : '7987.9740ba532b0d4.f9d12243f7362.507c0738dc561.87fba0a03df6e.75e6508cacf10.7a9835b54',
+                    'name'             : 'API recover and monitoring',
+                    'description'      : 'We need a service to monitor and recover failed APIs.',
+                    'idAttachmentCover': '',
+                    'idMembers'        : [
+                        '36027j1930450d8bf7b10158',
+                        '76027g1930450d8bf7b10958'
+                    ],
+                    'idLabels'         : [
+                        '26022e4129ad3a5sc28b36cd',
+                        '5640635e19ad3a5dc21416b2'
+                    ],
+                    'attachments'      : [],
+                    'subscribed'       : true,
+                    'checklists'       : [
+                        {
+                            'id'               : '6926.2b31d119e4a.889401e0ca7a0.13ad8ce2e569d.976e54e8b5d87.456afccd7e820.d6c77106a',
+                            'name'             : 'API Monitoring',
+                            'checkItemsChecked': 2,
+                            'checkItems'       : [
+                                {
+                                    'name'   : 'Simple dashboard design',
+                                    'checked': false
+                                },
+                                {
+                                    'name'   : 'Should be able to see different time periods on the same dashboard',
+                                    'checked': true
+                                },
+                                {
+                                    'name'   : 'Different colors for different clusters',
+                                    'checked': true
+                                }
+                            ]
+                        },
+                        {
+                            'id'               : '7c22.5261c7924387f.248e8b1d32205.003f7a9f501d1.1d48dcdbe8b23.8099dcc5f75a7.29a966196',
+                            'name'             : 'API Recovery',
+                            'checkItemsChecked': 1,
+                            'checkItems'       : [
+                                {
+                                    'name'   : 'Warning notifications to all developers',
+                                    'checked': false
+                                },
+                                {
+                                    'name'   : 'Immediate recovery options attached to the notifications',
+                                    'checked': true
+                                },
+                                {
+                                    'name'   : 'Backups every 6hours',
+                                    'checked': false
+                                }
+                            ]
+                        }
+                    ],
+                    'checkItems'       : 6,
+                    'checkItemsChecked': 3,
+                    'comments'         : [],
+                    'activities'       : [],
+                    'due'              : '2017-02-02T11:20:34.000Z'
+                }
+            ],
+            'members' : [
+                {
+                    'id'    : '56027c1930450d8bf7b10758',
+                    'name'  : 'Alice Freeman',
+                    'avatar': 'assets/images/avatars/alice.jpg'
+                }
+            ],
+            'labels'  : [
+                {
+                    'id'   : '26022e4129ad3a5sc28b36cd',
+                    'name' : 'High Priority',
+                    'color': 'red-500'
+                },
+                {
+                    'id'   : '6540635g19ad3s5dc31412b2',
+                    'name' : 'Feature',
+                    'color': 'green-400'
+                }
+            ]
+        },
+    ];
+}

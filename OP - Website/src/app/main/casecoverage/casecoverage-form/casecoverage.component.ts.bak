@@ -1,0 +1,102 @@
+import { Component, Inject, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
+
+import { HttpClient } from '@angular/common/http';
+import { casecoverage } from '../casecoverage.model';
+import { CasecoveragesService } from '../casecoverages.service';
+
+
+
+@Component({
+    selector     : 'systems-system-form-dialog',
+    templateUrl  : './casecoverage-form.component.html',
+    styleUrls    : ['./casecoverage-form.component.scss'],
+    encapsulation: ViewEncapsulation.None
+})
+
+export class CaseCoverageFormDialogComponent
+{
+    action: string;
+    casecoverages: casecoverage;
+    diseaseForm: FormGroup;
+    dialogTitle: string;
+    CategoryListItems: any;
+    casecoverage: casecoverage;
+
+ 
+  
+
+    /**
+     * Constructor
+     *
+     * @param {MatDialogRef<CaseCoverageFormDialogComponent>} matDialogRef
+     * @param _data
+     * @param {FormBuilder} _formBuilder
+     */
+    constructor(
+        public matDialogRef: MatDialogRef<CaseCoverageFormDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) private _data: any,
+        private _formBuilder: FormBuilder,
+        private _diseasesService: CasecoveragesService,
+        private _http: HttpClient
+    )
+    {
+        _http.get<any[]>('api/systems-categorydata').subscribe(result => {
+            this.CategoryListItems = result;
+            console.log(this.CategoryListItems);
+          }, error => console.error(error)); 
+          
+        console.log(this.CategoryListItems);
+        // Set the defaults
+        this.action = _data.action;
+
+        if ( this.action === 'edit' )
+        {
+            //this.dialogTitle = 'Edit Disease';
+            this.casecoverage = _data.casecoverage;
+        }
+        else
+        {
+            this.dialogTitle = 'New System';
+            this.casecoverage = new casecoverage({});
+        }
+
+        this.diseaseForm = this.createDiseaseForm();
+    }
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Public methods
+    // -----------------------------------------------------------------------------------------------------
+
+    /**
+     * Create system form
+     *
+     * @returns {FormGroup}
+     */
+    createDiseaseForm(): FormGroup
+    {
+        return this._formBuilder.group({
+            id      : [this.casecoverage.id],
+            name    : [this.casecoverage.name],
+            preferences    : [this.casecoverage.preferences],
+            notes    : [this.casecoverage.notes],
+            // lastName: [this.disease.lastName],
+            // avatar  : [this.disease.avatar],
+            // nickname: [this.disease.nickname],
+            // company : [this.disease.company],
+            // jobTitle: [this.disease.jobTitle],
+            // email   : [this.disease.email],
+            // phone   : [this.disease.phone],
+            // address : [this.disease.address],
+            // birthday: [this.disease.birthday],
+            // notes   : [this.disease.notes],
+            // categoryname   : [this.disease.categoryname],
+            // systemname   : [this.disease.systemname],
+            // nos   : [this.disease.nos],
+            createdby   : [this.casecoverage.createdby],
+            createdon   : [this.casecoverage.createdon]
+        });
+    }
+}

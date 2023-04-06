@@ -1,0 +1,104 @@
+import { Component, Inject, ViewEncapsulation } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+
+import { Distributor } from 'app/main/distributors/distributor.model';
+
+@Component({
+    selector     : 'distributors-distributor-form-dialog',
+    templateUrl  : './distributor-form.component.html',
+    styleUrls    : ['./distributor-form.component.scss'],
+    encapsulation: ViewEncapsulation.None
+})
+
+export class DistributorsDistributorFormDialogComponent
+{
+    action: string;
+    distributor: Distributor;
+    distributorForm: FormGroup;
+    dialogTitle: string;
+
+    /**
+     * Constructor
+     *
+     * @param {MatDialogRef<DistributorsDistributorFormDialogComponent>} matDialogRef
+     * @param _data
+     * @param {FormBuilder} _formBuilder
+     */
+    constructor(
+        public matDialogRef: MatDialogRef<DistributorsDistributorFormDialogComponent>,
+        @Inject(MAT_DIALOG_DATA) private _data: any,
+        private _formBuilder: FormBuilder
+    )
+    {
+        // Set the defaults
+        this.action = _data.action;
+
+        if ( this.action === 'edit' )
+        {
+            this.dialogTitle = 'Edit Distributor';
+            this.distributor = _data.distributor;
+        }
+        else
+        {
+            this.dialogTitle = 'New Distributor';
+            this.distributor = new Distributor({});
+        }
+
+        this.distributorForm = this.createDistributorForm();
+    }
+
+    // -----------------------------------------------------------------------------------------------------
+    // @ Public methods
+    // -----------------------------------------------------------------------------------------------------
+
+    /**
+     * Create distributor form
+     *
+     * @returns {FormGroup}
+     */
+    createDistributorForm(): FormGroup
+    {
+        return this._formBuilder.group({
+            id      : [this.distributor.id],
+            name    : [this.distributor.name],
+            lastName: [this.distributor.lastName],
+            avatar  : [this.distributor.avatar],
+            nickname: [this.distributor.nickname],
+            company : [this.distributor.company],
+            jobTitle: [this.distributor.jobTitle],
+            email   : [this.distributor.email],
+            phone   : [this.distributor.phone],
+            bphone   : [this.distributor.bphone],
+            address : [this.distributor.address],
+            birthday: [this.distributor.birthday],
+            notes   : [this.distributor.notes],
+            team   : [this.distributor.team],
+            team1   : [this.distributor.team1],
+            team2   : [this.distributor.team2],
+            team3   : [this.distributor.team3],
+            team4   : [this.distributor.team4],
+            department   : [this.distributor.department],
+            dep1   : [this.distributor.dep1],
+            dep2  : [this.distributor.dep2],
+            dep3   : [this.distributor.dep3],
+            dep4   : [this.distributor.dep4],
+
+            zcode   : [this.distributor.zcode],
+            city  : [this.distributor.city],
+            state   : [this.distributor.state],
+            
+            cname   : [this.distributor.cname],
+            region   : [this.distributor.region],
+            reg1   : [this.distributor.reg1],
+            reg2  : [this.distributor.reg2],
+            reg3   : [this.distributor.reg3],
+            reg4   : [this.distributor.reg4],
+
+
+            
+
+
+        });
+    }
+}

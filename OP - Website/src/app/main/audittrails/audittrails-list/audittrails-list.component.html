@@ -1,0 +1,116 @@
+
+<mat-table #table [dataSource]="dataSource"
+           [@animateStagger]="{value:'50'}">
+   
+ <!-- CreatedOn Column -->
+
+
+
+ 
+ <ng-container matColumnDef="createdon">
+    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Role</mat-header-cell>
+    <mat-cell *matCellDef="let casecoverage">
+        <p class="job-title text-truncate">
+            {{casecoverage.FormattedDate}}<span>&nbsp;</span>{{casecoverage.FormattedTime}}
+        </p>
+    </mat-cell>
+</ng-container>
+
+    <!-- DiseaseName Column -->
+    <ng-container matColumnDef="DiseaseName">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Audit Module</mat-header-cell>
+        <mat-cell *matCellDef="let casecoverage" >
+            <p class="text-truncate font-weight-600">{{casecoverage.DiseaseName}}</p>
+        </mat-cell>
+    </ng-container> 
+
+<!-- Hospital Column -->
+    <ng-container matColumnDef="Hospital">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Master</mat-header-cell>
+        <mat-cell *matCellDef="let casecoverage" >
+            <p class="phone text-truncate">
+                {{casecoverage.HospitalName}}
+            </p>
+        </mat-cell>
+    </ng-container>
+    <!-- Phone Column -->
+    <ng-container matColumnDef="createdby">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Audit Field</mat-header-cell>
+        <mat-cell *matCellDef="let casecoverage">
+            <p class="phone text-truncate">
+                {{casecoverage.SurgeonName}}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="PreviousValue">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Previous Value</mat-header-cell>
+        <mat-cell *matCellDef="let casecoverage">
+            <p class="phone text-truncate">
+                {{casecoverage.SurgeonName}}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ModifiedValue">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Modified Value</mat-header-cell>
+        <mat-cell *matCellDef="let casecoverage">
+            <p class="phone text-truncate">
+                {{casecoverage.SurgeonName}}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="ModifiedOn">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Modified On</mat-header-cell>
+        <mat-cell *matCellDef="let casecoverage">
+            <p class="phone text-truncate">
+                {{casecoverage.SurgeonName}}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+    
+    <ng-container matColumnDef="ModifiedBy">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Modified By</mat-header-cell>
+        <mat-cell *matCellDef="let casecoverage">
+            <p class="phone text-truncate">
+                {{casecoverage.SurgeonName}}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+    
+
+   
+        <!-- <ng-container matColumnDef="Preferences">
+            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Created on</mat-header-cell>
+            <mat-cell *matCellDef="let casecoverage" fxHide >
+                <p class="job-title text-truncate">
+                    {{casecoverage.preferences}}
+                </p>
+            </mat-cell>
+        </ng-container> -->
+
+   
+    <ng-container matColumnDef="buttons">
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm></mat-header-cell>
+        <mat-cell *matCellDef="let casecoverage" >
+            <div fxFlex="row" fxLayoutAlign="end center">
+               
+
+            </div>
+
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let casecoverage; columns: displayedColumns;"
+             class="casecoverage"
+             (click)="editcasecoverage(casecoverage)"
+             [ngClass]="{'accent-50':checkboxes[casecoverage.CaseCoverageID]}"
+             [@animate]="{value:'*',params:{y:'100%'}}"  style="cursor: pointer;">
+    </mat-row>
+</mat-table>
+
+

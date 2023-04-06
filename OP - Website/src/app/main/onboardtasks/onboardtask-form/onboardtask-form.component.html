@@ -1,0 +1,69 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-48 pb-0 m-0" fusePerfectScrollbar>
+
+        <div  *ngFor="let item of tasks"
+        cdkDropList
+        [cdkDropListData]="tasks"
+        class="example-list"
+ 
+        (cdkDropListDropped)="drop($event)">
+        <div class="example-box" cdkDrag><div  appearance="outline" style="padding: 10px;
+            width: 80%;          
+            box-sizing: border-box;
+            border: solid;
+            border-width: 1px;"><input type="text"  [(ngModel)]="item.OnBoardingTask" style="width:100%;"/> </div>
+        <div  fxLayoutAlign="end center">           
+            <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
+                    (click)="$event.stopPropagation();" >
+                <mat-icon class="secondary-text">more_vert</mat-icon>
+            </button>
+
+            <mat-menu #moreMenu="matMenu">
+                <button mat-menu-item aria-label="remove" (click)="deleteonboardingtask(item.OnBoardingTaskID,item)">
+                    <mat-icon>delete</mat-icon>
+                    <span>Remove</span>
+                </button>
+            </mat-menu>
+        </div>
+    </div>
+      </div>
+
+      <!-- <div cdkDropList class="example-list" (cdkDropListDropped)="drop($event)">
+  <div class="example-box" *ngFor="let task of tasks; index as i; trackBy: trackByFn" cdkDrag>
+    <div class="example-custom-placeholder" *cdkDragPlaceholder></div>
+    <input type="text" [(ngModel)]="tasks[i]"/>
+  </div>
+</div> -->
+
+    </div>
+
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button  mat-button class="mr-8"
+        (click)="matDialogRef.close()" aria-label="CANCEL" matTooltip="CANCEL">
+            CANCEL
+        </button>
+
+        <button *ngIf="action !== 'edit'" mat-button class="save-button" [disabled]="dailymessageForm.invalid" (click)="saveOnboardTask()"
+   aria-label="SAVE">
+            ADD
+        </button>
+
+        <button *ngIf="action === 'edit'" mat-button class="save-button"
+        (click)="saveDailyMessage()" [disabled]="dailymessageForm.invalid"
+            aria-label="SAVE">
+            SAVE
+        </button>
+
+    </div>
+</div>  

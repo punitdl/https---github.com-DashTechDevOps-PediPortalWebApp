@@ -1,0 +1,316 @@
+<div class="dialog-content-wrapper">
+
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+
+
+    </mat-toolbar>
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+
+
+
+
+
+
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <form [formGroup]="usermanagementForm">
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Role</mat-label>
+                                <mat-select matNativeControl formControlName="RoleID" required
+                                    (selectionChange)="onRoleChange($event)">
+                                    <mat-option *ngFor="let data of RoleListItems" [value]="data.RoleID">
+                                        {{ data.RoleName }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <!-- *ngIf="usermanagementForm.value.RoleID != '2' && FieldDistributor" -->
+                        <div *ngIf="usermanagementForm.value.RoleID != '2' && FieldDistributor" fxLayout="row"
+                            fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Region</mat-label>
+                                <mat-select matNativeControl formControlName="RegionID">
+                                    <mat-option *ngFor="let data of RegionListItems" [value]="data.RegionID">
+                                        {{ data.RegionName }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start start" *ngIf="FieldDistributor">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Company Name</mat-label>
+                                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                                <input name="CompanyName" formControlName="CompanyName" matInput
+                                    [required]="FieldDistributor">
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>DOJ</mat-label>
+                                <input matInput [matDatepicker]="ApprovalDate" name="ApprovalDate"
+                                    formControlName="ApprovalDate">
+                                <mat-datepicker-toggle matSuffix [for]="ApprovalDate"></mat-datepicker-toggle>
+                                <mat-datepicker #ApprovalDate></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+                        <!-- 
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Task Status</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="TaskStatus" formControlName="TaskStatus" matInput>
+                        </mat-form-field>
+                    </div> -->
+                        <div fxLayout="row" fxLayoutAlign="start start" *ngIf="FieldRepresentative">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Distributor</mat-label>
+                                <mat-select matNativeControl formControlName="DistributorID"
+                                    [required]="FieldRepresentative">
+                                    <mat-option *ngFor="let data of DistributorListItems" [value]="data.DistributorID">
+                                        {{ data.CompanyName }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>First Name</mat-label>
+                                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                                <input name="FirstName" formControlName="FirstName" matInput>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Last Name</mat-label>
+                                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                                <input name="LastName" formControlName="LastName" matInput>
+                            </mat-form-field>
+                        </div>
+
+
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Address</mat-label>
+                                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                                <input name="Address" formControlName="Address" matInput>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start start" style="padding: 20px;" *ngIf="ShowContact">
+                            <mat-field appearance="outline" fxFlex=50>
+                                <mat-slide-toggle formControlName="Contact" (change)="onContactChange($event.checked)">Add to
+                                    Contact</mat-slide-toggle>
+                            </mat-field>
+
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start start" *ngIf="FieldContact && ShowContact">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Job Title</mat-label>
+                                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                                <input name="City" formControlName="JobTitle" matInput
+                                    [required]="FieldContact && ShowContact">
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start start" *ngIf="FieldContact && ShowContact">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Department</mat-label>
+                                <mat-select formControlName="DepartmentID"
+                                    (selectionChange)="onDepartmentChange($event.value)"
+                                    [required]="FieldContact && ShowContact">
+                                    <mat-option *ngFor="let data of DepartmentListItems" [value]="data.DepartmentID">
+                                        {{ data.DepartmentName }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start start" *ngIf="FieldContact && ShowContact">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Team</mat-label>
+                                <mat-select formControlName="TeamID" [required]="FieldContact && ShowContact">
+                                    <mat-option *ngFor="let data of TeamListItems" [value]="data.TeamID">
+                                        {{ data.TeamName }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </form>
+                </div>
+                <div class="col">
+                    <form [formGroup]="usermanagementForm">
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Country</mat-label>
+                                <mat-select formControlName="CountryID" (selectionChange)="onCountryChange($event)">
+                                    <mat-option *ngFor="let data of CountryListItems" [value]="data.CountryID">
+                                        {{ data.CountryName }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                        <div *ngIf="usermanagementForm.value.RoleID != '2'" fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>State</mat-label>
+                                <mat-select formControlName="StateID" required>
+                                    <mat-option *ngFor="let data of StateListItems" [value]="data.StateID">
+                                        {{ data.StateDescription }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div *ngIf="usermanagementForm.value.RoleID == '2'" fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>State</mat-label>
+                                <mat-select formControlName="StateListIDs" multiple>
+                                    <mat-option *ngFor="let data of StateListItems" [value]="data.StateID">
+                                        {{ data.StateDescription }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row" fxLayoutAlign="start start">
+
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>City</mat-label>
+                                <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                                <input name="City" formControlName="City" matInput>
+                            </mat-form-field>
+                        </div>
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" floatLabel="always" class="w-100-p">
+                                <mat-label>User Image</mat-label>
+                                <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+                                <button mat-raised-button (click)="fileInput.click()"
+                                    class="add-product-button fuse-white mt-24 mt-md-0">
+                                    <span>Browse</span>
+                                </button>
+
+                                <button mat-raised-button style="display: none; float: right;"
+                                    (click)="onUpload()">Upload!</button>
+
+                                <input matInput placeholder="Product Name" style="display: none;" name="name"
+                                    formControlName="ProfileURL">
+                                <div *ngIf="ImageURLNew && ImageURLNew !== ''">
+                                    <img [src]="ImageURLNew" width="250px" class="system-avatar huge m-0" [alt]="" />
+                                </div>
+
+                            </mat-form-field>
+
+                        </div>
+
+
+                        <!-- 
+                  <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>State</mat-label>
+                            
+                            <mat-select  [formControlName]="StateID">
+                            
+                                <mat-option *ngFor="let data of StateListItems" [value]="data.StateID">
+                                   {{ data.StateDescription }}</mat-option>
+                               </mat-select>
+                          </mat-form-field>
+
+                         
+                    </div>  -->
+
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Zip Code</mat-label>
+                                <mat-icon matSuffix class="secondary-text">work</mat-icon>
+                                <input name="Zipcode" formControlName="Zipcode" matInput>
+                            </mat-form-field>
+                        </div>
+
+
+
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Mobile Number</mat-label>
+                                <mat-icon matSuffix class="secondary-text">phone</mat-icon>
+                                <input name="MobileNo" formControlName="MobileNo" matInput type="phone">
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Email</mat-label>
+                                <mat-icon matSuffix class="secondary-text">email</mat-icon>
+                                <input name="EMailID" formControlName="EMailID" matInput type="email" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>UserName</mat-label>
+                                <mat-icon matSuffix class="secondary-text">email</mat-icon>
+                                <input name="UserName" formControlName="UserName" matInput type="email" required>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Register On</mat-label>
+                                <input matInput [matDatepicker]="RequestDate" name="RequestDate"
+                                    formControlName="RequestDate">
+                                <mat-datepicker-toggle matSuffix [for]="RequestDate"></mat-datepicker-toggle>
+                                <mat-datepicker #RequestDate></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                        <div fxLayout="row" fxLayoutAlign="start start">
+                            <mat-form-field appearance="outline" fxFlex>
+                                <mat-label>Timezone</mat-label>
+                                <mat-select formControlName="TimeZoneID" required>
+                                    <mat-option *ngFor="let data of TimeZoneListItems" [value]="data.TimeZoneID">
+                                        {{ data.TimeZoneDescription }}</mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+            <div class="row" *ngIf="FieldRepresentative && TaskListItems?.length">
+                <div class="col">
+                    <table class="simple">
+                        <thead>
+                            <tr>
+                                <th>Week No</th>
+                                <th>Task Name</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let TaskListItem of TaskListItems">
+                                <td>{{ TaskListItem.Week }}</td>
+                                <td>{{ TaskListItem.Task }}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button *ngIf="action === 'edit'" mat-button class="mr-8" (click)="matDialogRef.close()" aria-label="CANCEL"
+            matTooltip="CANCEL">
+            CANCEL
+        </button>
+
+        <button *ngIf="action !== 'edit'" mat-button class="save-button" (click)="saveUser()"
+            [disabled]="usermanagementForm.invalid" aria-label="SAVE">
+            ADD
+        </button>
+
+        <button *ngIf="action === 'edit'" mat-button class="save-button" (click)="saveUser()"
+            [disabled]="usermanagementForm.invalid" aria-label="SAVE">
+            SAVE
+        </button>
+
+    </div>
+</div>

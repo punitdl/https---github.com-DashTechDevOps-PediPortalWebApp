@@ -1,0 +1,104 @@
+<!-- CARD COVER -->
+<div *ngIf="board.settings.cardCoverImages && card.idAttachmentCover"
+     class="list-card-cover">
+    <img [src]="card.attachments | getById:card.idAttachmentCover:'src'">
+</div>
+<!-- / CARD COVER -->
+
+<!-- CARD DETAILS -->
+<div class="list-card-details">
+
+    <!-- CARD SORT HANDLE -->
+    <div class="list-card-sort-handle">
+        <mat-icon mat-font-icon="icon-cursor-move" class="icon s16"></mat-icon>
+    </div>
+    <!-- /CARD SORT HANDLE -->
+
+    <!-- CARD LABELS -->
+    <!-- <div *ngIf="card.idLabels.length > 0" class="list-card-labels" fxLayout="row wrap">
+
+        <span class="list-card-label"
+              [ngClass]="board.labels | getById:labelId:'color'"
+              *ngFor="let labelId of card.idLabels"
+              [matTooltip]="board.labels | getById:labelId:'name'">
+        </span>
+
+    </div> -->
+    <!-- / CARD LABELS -->
+
+    <!-- CARD NAME -->
+    <div class="list-card-name">{{card.name}}</div>
+    <!-- / CARD NAME -->
+
+    <!-- <div *ngIf="card.due || card.checkItems"
+         class="list-card-badges" fxLayout="row" fxLayoutAlign="start center">
+
+       
+        <span class="badge due-date"
+              [ngClass]="{'overdue': isOverdue(card.due)}"
+              *ngIf="card.due" fxLayout="row" fxLayoutAlign="start center">
+            <mat-icon class="s-16">access_time</mat-icon>
+            <span>{{card.due | date:'mediumDate'}}</span>
+
+        </span>
+       
+        <span *ngIf="card.checkItems"
+              class="badge check-items"
+              [ngClass]="{'completed': card.checkItemsChecked === card.checkItems}"
+              fxLayout="row" fxLayoutAlign="start center">
+            <mat-icon class="s-16">check_circle</mat-icon>
+            <span>{{card.checkItemsChecked}}</span>
+            <span>/</span>
+            <span>{{card.checkItems}}</span>
+        </span>
+       
+
+    </div> -->
+
+    <!-- CARD MEMBERS -->
+    <!-- <div *ngIf="card.idMembers.length > 0"
+         class="list-card-members"
+         fxLayout="row">
+
+        <div class="list-card-member"
+             *ngFor="let memberId of card.idMembers">
+
+            <img class="list-card-member-avatar"
+                 [src]="board.members | getById:memberId:'avatar'"
+                 [matTooltip]="board.members | getById:memberId:'name'">
+        </div>
+
+    </div> -->
+    <!-- / CARD MEMBERS -->
+
+</div>
+<!-- / CARD DETAILS -->
+
+<!-- CARD FOOTER -->
+<div class="list-card-footer" fxLayout="row" fxLayoutAlign="space-between center">
+
+    <div fxLayout="row" fxLayoutAlign="start center">
+
+        <!-- CARD SUBSCRIBE -->
+      
+        <!-- / CARD SUBSCRIBE -->
+
+        <!-- CARD DETAILS -->
+       
+        <!-- / CARD DETAILS -->
+
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="end center">
+
+        <!-- CARD ATTACHMENT -->
+       
+        <!-- / CARD ATTACHMENT -->
+
+        <!-- CARD COMMENTS -->
+       
+        <!-- / CARD COMMENTS -->
+
+    </div>
+</div>
+<!-- CARD FOOTER -->

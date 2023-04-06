@@ -1,0 +1,137 @@
+export class CommonFakeDb
+{
+
+    
+
+
+    public static statelist = [
+        {
+            'id'      : '-1',
+            'desc'    : 'All',         
+        },
+        {
+            'id'      : '1',
+            'desc'    : 'California',         
+        },
+        {
+            'id'      : '2',
+            'desc'    : 'Los Angeles',     
+        },
+        {
+            'id'      : '3',
+            'desc'    :  'Florida',        
+        }
+    ];
+
+    public static departmentlist = [
+        {
+            'id'      : '-1',
+            'desc'    : 'All',         
+        },
+        {
+            'id'      : '1',
+            'desc'    : 'Sales',         
+        },
+        {
+            'id'      : '2',
+            'desc'    : 'Operations',     
+        },
+        {
+            'id'      : '3',
+            'desc'    :  'Engineering',        
+        },
+        {
+            'id'      : '4',
+            'desc'    :  'Admin'      
+        }
+    ];
+    public static regionlist = [
+        {
+            'id'      : '-1',
+            'desc'    : 'All',         
+        },
+        {
+            'id'      : '1',
+            'desc'    : 'North',         
+        },
+        {
+            'id'      : '2',
+            'desc'    : 'East',     
+        },
+        {
+            'id'      : '3',
+            'desc'    :  'West',        
+        },
+        {
+            'id'      : '4',
+            'desc'    :  'South'      
+        }
+    ];
+    public static teamlist = [
+        {
+            'id'      : '-1',
+            'desc'    : 'All',         
+        },
+        {
+            'id'      : '1',
+            'desc'    : 'Warehouse',         
+        },
+        {
+            'id'      : '2',
+            'desc'    : 'Exective',     
+        },
+        {
+            'id'      : '3',
+            'desc'    :  'Orthex',        
+        },
+        {
+            'id'      : '4',
+            'desc'    :  'Management'      
+        }
+    ];
+    public static rolelist = [
+        {
+            'id'      : '-1',
+            'desc'    : 'All',         
+        },
+        {
+            'id'      : '1',
+            'desc'    : 'Admin',         
+        },
+        {
+            'id'      : '2',
+            'desc'    : 'Surgeon',     
+        },
+        {
+            'id'      : '3',
+            'desc'    :  'Representative',        
+        },
+        {
+            'id'      : '4',
+            'desc'    :  'Distributor'      
+        }
+    ];
+    public static distributorlist = [
+        {
+            'id'      : '-1',
+            'desc'    : 'All',         
+        },
+        {
+            'id'      : '1',
+            'desc'    : 'AIMS',         
+        },
+        {
+            'id'      : '2',
+            'desc'    : 'Distributor Orthopeadic',     
+        },
+        {
+            'id'      : '3',
+            'desc'    :  'Apollo',        
+        },
+        {
+            'id'      : '4',
+            'desc'    :  'Ortho Distributor California'      
+        }
+    ];
+
+}

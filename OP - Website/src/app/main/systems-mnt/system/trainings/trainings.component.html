@@ -1,0 +1,85 @@
+ <div class="dialog-content-wrapper" style="width :900px;">
+    <mat-toolbar matDialogTitle class="mat-accent m-0" style="width: 900px;">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">Training Material</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+    </mat-toolbar>
+    <div mat-dialog-content class="m-0  inner-scroll" fxLayout="row" fusePerfectScrollbar style="width: 900px;">
+        <div class="container" fusePerfectScrollbar style="width: 900px; min-height: 70vh;">
+        <div class="row">
+            <div class="col">
+            <div appearance="outline"  fxFlex="30"  class="w-100-p">
+                <mat-label>Training Source</mat-label>
+                <mat-select [(ngModel)]="selectedFilter" (selectionChange)="SelectedFilter($event.value)" >
+                    <mat-option value="">Select Training Source</mat-option>
+                                        <mat-option *ngFor="let data of SourceListItems"
+                                            [value]="data.TrainingSourceID">{{ data.TrainingSourceName }}</mat-option>
+                </mat-select>
+            </div>
+            <div appearance="outline"  fxFlex="30"  class="w-100-p">
+                <mat-label>Filter</mat-label>
+               <input matInput placeholder="Search Filter" type="text" (input)="FilterTextChange($event.target.value)"  > 
+            </div>
+
+            <div>
+
+                <button mat-raised-button class="add-system-button fuse-accent mt-24 mt-md-0"
+                (click)="loadTrainingDataGrid()">
+                <span>Load Training</span>
+            </button>
+
+            <button mat-raised-button class="add-system-button fuse-accent mt-24 mt-md-0"
+            (click)="pushTrainingDataGrid()" style="margin-left:25px;">
+            <span>Save Training</span>
+        </button>
+                <!-- <button mat-fab class="accent" style="margin:25px;" (click)="loadTrainingDataGrid()">
+                    <mat-icon>search</mat-icon>
+                </button>
+
+                <button mat-fab class="accent" style="margin:25px;" (click)="pushTrainingDataGrid()">
+                    <mat-icon>person</mat-icon>
+                </button> -->
+            </div>
+
+        </div>
+                   
+      
+            
+       </div>
+      
+ <div class="row">
+    <div class="col">
+ <table class="simple">
+    <thead>
+        <tr>
+            <th></th>
+          <th>Source</th>
+          <th>Title</th>  
+          <th>URL</th>                       
+        </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let training of trainings">
+     <td>
+            <!-- <checkbox [(ngModel)]="checkboxes[training.TrainingMaterialID]" (ngModelChange)="onSelectedChange(training.TrainingMaterialID)"
+        (click)="$event.stopPropagation()">
+<checkbox> -->
+    <input type="checkbox" [(ngModel)]="training.checked" (ngModelChange)="onSelectedChange(training)">
+
+</td>
+        <td>{{ training.TrainingSourceName }}</td>
+          
+        <td>{{training.TrainingMaterialName}}</td>    
+       <td>{{training.LinkURL}}</td>
+      </tr>
+    </tbody>
+  </table>
+    </div>
+ </div>
+        </div>
+</div>
+ </div>
+

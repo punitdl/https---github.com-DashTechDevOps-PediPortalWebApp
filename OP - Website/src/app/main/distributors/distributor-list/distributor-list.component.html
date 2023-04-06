@@ -1,0 +1,177 @@
+<mat-table #table [dataSource]="dataSource"
+           [@animateStagger]="{value:'50'}">
+    <!-- Checkbox Column -->
+
+    <ng-container matColumnDef="checkbox">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let distributor">
+            <mat-checkbox [(ngModel)]="checkboxes[distributor.DistributorID]" (ngModelChange)="onSelectedChange(distributor.DistributorID)"
+                          (click)="$event.stopPropagation()">
+            </mat-checkbox>
+        </mat-cell>
+    </ng-container>
+
+
+    
+    <ng-container matColumnDef="PhotoURL">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let distributor">
+            <img class="avatar" *ngIf="distributor.PhotoURL" [alt]="distributor.name"
+                 [src]="distributor.PhotoURL"/>
+        </mat-cell>
+    </ng-container>
+    
+    <!-- Avatar Column -->
+    <!-- <ng-container matColumnDef="region" >
+        <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>Region</mat-header-cell>
+        <mat-cell *matCellDef="let distributor">
+            <p class="text-truncate font-weight-600"> {{distributor.region}}</p>
+        </mat-cell>
+    </ng-container> -->
+
+    <ng-container matColumnDef="CompanyName">
+        <mat-header-cell *matHeaderCellDef>Company Name</mat-header-cell>
+        <mat-cell *matCellDef="let distributor">
+            <p class="text-truncate font-weight-600"> {{distributor.CompanyName}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <!-- <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef>First Name</mat-header-cell>
+        <mat-cell *matCellDef="let distributor">
+            <p class="text-truncate font-weight-600"> {{distributor.name}}</p>
+        </mat-cell>
+    </ng-container> -->
+
+
+    <!-- <ng-container matColumnDef="lastname">
+        <mat-header-cell *matHeaderCellDef>Last Name</mat-header-cell>
+        <mat-cell *matCellDef="let distributor">
+            <p class="text-truncate font-weight-600"> {{distributor.lastName}}</p>
+        </mat-cell>
+    </ng-container> -->
+
+
+    <!-- <ng-container matColumnDef="address">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-lg>Address</mat-header-cell>
+        <mat-cell *matCellDef="let distributor" fxHide fxShow.gt-lg>
+            <p class="job-title text-truncate">
+                {{distributor.address}}
+            </p>
+        </mat-cell>
+    </ng-container> -->
+
+    <!-- <ng-container matColumnDef="city">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>City</mat-header-cell>
+        <mat-cell *matCellDef="let distributor" fxHide fxShow.gt-md>
+            <p class="phone text-truncate">
+                {{distributor.city}}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="state">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>State</mat-header-cell>
+        <mat-cell *matCellDef="let distributor" fxHide fxShow.gt-md>
+            <p class="phone text-truncate">
+                {{distributor.state}}
+            </p>
+        </mat-cell>
+    </ng-container> -->
+    <!-- <ng-container matColumnDef="Region">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Region</mat-header-cell>
+        <mat-cell *matCellDef="let distributor" fxHide fxShow.gt-md>
+            <p class="phone text-truncate">
+                {{distributor.Region}}
+            </p>
+        </mat-cell>
+    </ng-container> -->
+
+    <ng-container matColumnDef="RegionID">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>RegionID</mat-header-cell>
+        <mat-cell *matCellDef="let distributor" fxHide fxShow.gt-md>
+            <p class="phone text-truncate">
+                {{distributor.RegionID}}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+
+    <!-- <ng-container matColumnDef="zcode">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Zip Code</mat-header-cell>
+        <mat-cell *matCellDef="let distributor" fxHide fxShow.gt-md>
+            <p class="phone text-truncate">
+                {{distributor.zcode}}
+            </p>
+        </mat-cell>
+    </ng-container> -->
+
+    <ng-container matColumnDef="MobileNo">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Mobile Number</mat-header-cell>
+        <mat-cell *matCellDef="let distributor" fxHide fxShow.gt-md>
+            <p class="phone text-truncate">
+                {{distributor.MobileNo}}
+            </p>
+        </mat-cell>
+    </ng-container>
+    <!-- Email Column -->
+    <!-- <ng-container matColumnDef="emailMobileNo">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Email</mat-header-cell>
+        <mat-cell *matCellDef="let distributor" fxHide fxShow.gt-sm>
+            <p class="email text-truncate">
+                {{distributor.email}}
+            </p>
+        </mat-cell>
+    </ng-container> -->
+
+    <!-- Phone Column -->
+   
+
+    <!-- Job Title Column -->
+   
+    
+
+    <!-- Company Column -->
+   
+
+    <!-- Buttons Column -->
+    <ng-container matColumnDef="buttons">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let distributor">
+            <div fxFlex="row" fxLayoutAlign="end center">
+               
+
+                <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
+                        (click)="$event.stopPropagation();">
+                    <mat-icon class="secondary-text">more_vert</mat-icon>
+                </button>
+
+                <mat-menu #moreMenu="matMenu">
+                    <button mat-menu-item aria-label="remove" (click)="deleteDistributor(distributor)">
+                        <mat-icon>delete</mat-icon>
+                        <span>Remove</span>
+                    </button>
+                </mat-menu>
+            </div>
+
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let distributor; columns: displayedColumns;"
+             class="distributor"
+             (click)="editDistributor(distributor)"
+             [ngClass]="{'accent-50':checkboxes[distributor.DistributorID]}"
+             [@animate]="{value:'*',params:{y:'100%'}}">
+    </mat-row>
+</mat-table>
+<!-- <mat-paginator #paginator
+[length]="dataSource.filteredData.length"
+[pageIndex]="0"
+[pageSize]="10"
+[pageSizeOptions]="[5, 10, 25, 100]">
+</mat-paginator> -->
+
+

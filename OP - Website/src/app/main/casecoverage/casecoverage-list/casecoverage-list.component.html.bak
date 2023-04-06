@@ -1,0 +1,101 @@
+
+<mat-table #table [dataSource]="dataSource"
+           [@animateStagger]="{value:'50'}">
+   
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="DiseaseName">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Disease Name</mat-header-cell>
+        <mat-cell *matCellDef="let casecoverage" fxHide fxShow.gt-md>
+            <p class="text-truncate font-weight-600">{{casecoverage.name}}</p>
+        </mat-cell>
+    </ng-container>
+
+
+    <ng-container matColumnDef="Hospital">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Hospital</mat-header-cell>
+        <mat-cell *matCellDef="let casecoverage" fxHide fxShow.gt-md>
+            <p class="phone text-truncate">
+                {{casecoverage.company}}
+            </p>
+        </mat-cell>
+    </ng-container>
+    <!-- Phone Column -->
+    <ng-container matColumnDef="createdby">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Surgeon</mat-header-cell>
+        <mat-cell *matCellDef="let casecoverage" fxHide fxShow.gt-md>
+            <p class="phone text-truncate">
+                {{casecoverage.createdby}}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Job Title Column -->
+    <ng-container matColumnDef="createdon">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Created on</mat-header-cell>
+        <mat-cell *matCellDef="let casecoverage" fxHide fxShow.gt-md>
+            <p class="job-title text-truncate">
+                {{casecoverage.createdon}}
+            </p>
+        </mat-cell>
+    </ng-container>
+        <!-- <ng-container matColumnDef="Preferences">
+            <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Created on</mat-header-cell>
+            <mat-cell *matCellDef="let casecoverage" fxHide >
+                <p class="job-title text-truncate">
+                    {{casecoverage.preferences}}
+                </p>
+            </mat-cell>
+        </ng-container> -->
+
+   
+    <ng-container matColumnDef="buttons">
+        <mat-header-cell *matHeaderCellDef  fxHide fxShow.gt-md></mat-header-cell>
+        <mat-cell *matCellDef="let casecoverage"  fxHide fxShow.gt-md>
+            <div fxFlex="row" fxLayoutAlign="end center">
+               
+
+                <button mat-icon-button  aria-label="More"
+                       
+                        (click)="editcasecoverage(casecoverage)">
+                    <mat-icon class="secondary-text">more_vert</mat-icon>
+                </button>
+
+                <!-- <mat-menu #moreMenu="matMenu">
+                    <button mat-dialog-content aria-label="remove" style="height: fit-content;">
+                     
+                        <div class="dialog-content-wrapper">
+                                     <div fxLayout="row" fxLayoutAlign="start start">
+                                        <div appearance="outline" fxFlex="100">
+                                            {{casecoverage.preferences}}                                        
+                                        </div>
+                                     </div>
+                                        <div fxLayout="row" fxLayoutAlign="start start">
+                                        <div appearance="outline" fxFlex="100">
+                                            {{casecoverage.notes}}
+                                        
+                                        </div>
+                                     </div>
+                        
+                        
+                           
+                        </div>
+                         
+                       
+                    </button>
+                </mat-menu> -->
+            </div>
+
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let casecoverage; columns: displayedColumns;"
+             class="casecoverage"
+             (click)="editcasecoverage(casecoverage)"
+             [ngClass]="{'accent-50':checkboxes[casecoverage.id]}"
+             [@animate]="{value:'*',params:{y:'100%'}}">
+    </mat-row>
+</mat-table>
+
+

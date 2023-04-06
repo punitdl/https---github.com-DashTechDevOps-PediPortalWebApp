@@ -1,0 +1,69 @@
+<div id="profile" fxLayout="column">
+
+    <div id="forgot-password-form-wrapper" fxLayout="column" fxLayoutAlign="center center">
+
+        <div id="forgot-password-form" [@animate]="{value:'*',params:{duration:'300ms',y:'100px'}}" style="background-color: white !important;">
+
+            <mat-toolbar-row class="toolbar-bottom py-16" fxLayout="column" fxLayoutAlign="center center">
+            <div class="avatar huge m-0">
+                <img *ngIf="ProfileURL == 'undefined'"  src="assets/images/avatars/profile.jpg">
+                <img *ngIf="ProfileURL != 'undefined'"  [src]="ProfileURL">
+            </div>
+            </mat-toolbar-row>
+
+            <div class="title">PROFILE</div>
+
+            <form name="profileForm" [formGroup]="profileForm" novalidate>
+
+
+
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <mat-form-field appearance="outline" fxFlex="50" class="pr-4">
+                        <mat-label>First Name</mat-label>
+                        <input matInput formControlName="FirstName" [(ngModel)]="FirstName" type="text" required>
+                        <mat-error>First Name required!</mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="outline" fxFlex="50" class="pl-4">
+                        <mat-label>Last Name</mat-label>
+                        <input matInput formControlName="LastName" [(ngModel)]="LastName" type="text" required>
+                        <mat-error>Last Name is required!</mat-error>
+                    </mat-form-field>
+                </div>
+
+
+                <mat-form-field appearance="outline">
+                    <mat-label>EMail</mat-label>
+                    <input matInput formControlName="EMailID" [(ngModel)]="EMailID">
+                    <mat-icon matSuffix class="secondary-text">mail</mat-icon>
+                    <mat-error *ngIf="profileForm.get('EMailID').hasError('required')">
+                        Email is required
+                    </mat-error>
+                    <mat-error *ngIf="profileForm.get('EMailID').hasError('email')">
+                        Please enter a valid email address
+                    </mat-error>
+                </mat-form-field>
+
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <mat-form-field appearance="outline" fxFlex>
+                        <mat-label>Mobile Number</mat-label>
+                        <mat-icon matSuffix class="secondary-text">phone</mat-icon>
+                        <input name="phone" formControlName="MobileNo" [(ngModel)]="MobileNo" matInput type="phone">
+                    </mat-form-field>
+                </div>
+
+                <button mat-raised-button class="submit-button" color="accent"
+                        aria-label="UPDATE" [disabled]="profileForm.invalid" (click)="updateprofile()">
+                    UPDATE
+                </button>
+            </form>
+
+            <!-- <div class="login" fxLayout="row" fxLayoutAlign="center center">
+                <a class="link" [routerLink]="'/login'">Go back to login</a>
+            </div> -->
+
+        </div>
+
+    </div>
+
+</div>

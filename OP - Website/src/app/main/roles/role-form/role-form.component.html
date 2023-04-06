@@ -1,0 +1,101 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0 " fusePerfectScrollbar>
+
+        <form [formGroup]="roleForm">
+            <div fxLayout="row" fxLayoutAlign="start start" aria-disabled="true">
+
+
+                <mat-form-field appearance="outline" fxFlex=50>
+                    <mat-label>Role</mat-label>
+                    <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                    <input name="RoleName" formControlName="RoleName" matInput>
+                </mat-form-field>
+                <mat-field appearance="outline" fxFlex=50>
+                    <mat-slide-toggle formControlName="DesktopAccess" (change)="DesktopAccessChange($event)">Desktop
+                        Access</mat-slide-toggle>
+                </mat-field>
+
+
+
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start start" aria-disabled="true">
+
+                <mat-form-field appearance="outline" fxFlex=50>
+                    <mat-label>Description</mat-label>
+                    <textarea matInput formControlName="RoleDescription" required style="height: 120px;"
+                        maxlength="250">
+                            </textarea>
+                </mat-form-field>
+                <mat-tree [dataSource]="dataSource" [treeControl]="treeControl"
+                    style="max-height :380px; overflow: auto;">
+                    <!-- This is the tree node template for leaf nodes -->
+                    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+                        <!-- use a disabled button to provide padding for tree leaf -->
+                        <button mat-icon-button disabled></button>
+                        <!-- {{node.name}} -->
+                        <mat-checkbox class="checklist-leaf-node" [checked]="checklistSelection.isSelected(node)"
+                            (change)="todoLeafItemSelectionToggle(node)">{{node.ModuleName}}</mat-checkbox>
+                    </mat-tree-node>
+                    <!-- This is the tree node template for expandable nodes -->
+                    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                        <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.ModuleName">
+                            <mat-icon class="mat-icon-rtl-mirror">
+                                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                            </mat-icon>
+                        </button>
+                        <!-- {{node.name}} -->
+
+                        <mat-checkbox [checked]="descendantsAllSelected(node)"
+                            [indeterminate]="descendantsPartiallySelected(node)"
+                            (change)="todoItemSelectionToggle(node)">{{node.ModuleName}}</mat-checkbox>
+                    </mat-tree-node>
+                </mat-tree>
+
+            </div>
+
+
+
+            <div fxLayout="row" fxLayoutAlign="start start" aria-disabled="true">
+
+
+
+            </div>
+        </form>
+
+
+
+
+
+
+
+
+        <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+            <button *ngIf="action === 'edit'" mat-button class="mr-8" (click)="matDialogRef.close()" aria-label="CANCEL"
+                matTooltip="CANCEL">
+                CANCEL
+            </button>
+
+            <button *ngIf="action !== 'edit'" mat-button class="save-button" (click)="saveRoles()"
+                (click)="matDialogRef.close([roleForm])" [disabled]="roleForm.invalid" aria-label="SAVE">
+                ADD
+            </button>
+
+            <button *ngIf="action === 'edit'" mat-button class="save-button" (click)="saveRoles()"
+                (click)="matDialogRef.close([roleForm])" [disabled]="roleForm.invalid" aria-label="SAVE">
+                SAVE
+            </button>
+
+        </div>
+
+    </div>

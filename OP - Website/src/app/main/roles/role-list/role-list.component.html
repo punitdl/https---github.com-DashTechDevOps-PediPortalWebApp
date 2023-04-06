@@ -1,0 +1,74 @@
+<mat-table #table [dataSource]="dataSource"
+           [@animateStagger]="{value:'50'}">
+    <!-- Checkbox Column -->
+    <ng-container matColumnDef="checkbox">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let role">
+            <mat-checkbox [(ngModel)]="checkboxes[role.RoleID]" (ngModelChange)="onSelectedChange(role.RoleID)"
+                          (click)="$event.stopPropagation()">
+            </mat-checkbox>
+        </mat-cell>
+    </ng-container>   
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="RoleName">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Role</mat-header-cell>
+        <mat-cell *matCellDef="let role" fxHide fxShow.gt-sm>
+            <p class="email text-truncate">
+                {{role.RoleName}}
+            </p>
+        </mat-cell>
+    </ng-container>
+    
+
+    <ng-container matColumnDef="RoleDescription">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Role Description</mat-header-cell>
+        <mat-cell *matCellDef="let role" fxHide fxShow.gt-sm>
+            <p class="email text-truncate">
+                {{role.RoleDescription}}
+            </p>
+        </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="ModuleStr">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Modules</mat-header-cell>
+        <mat-cell *matCellDef="let role" fxHide fxShow.gt-sm>
+            <p class="email text-truncate">
+                {{role.ModuleStr}}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+    
+    <!-- Buttons Column -->
+    <ng-container matColumnDef="buttons">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let role">
+            <div fxFlex="row" fxLayoutAlign="end center"  >
+              
+
+                <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
+               (click)="$event.stopPropagation();"  *ngIf="role.Freeze==false">
+                    <mat-icon class="secondary-text">more_vert  {{role.freeze}}</mat-icon>
+                </button>
+
+                <mat-menu #moreMenu="matMenu">
+                    <button mat-menu-item aria-label="remove"  (click)="deleteRole(role)">
+                        <mat-icon>delete</mat-icon>
+                        <span>Remove</span>
+                    </button>
+                </mat-menu>
+            </div>
+
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let role; columns: displayedColumns;"
+             class="role" 
+             (click)="editRole(role)"
+             [ngClass]="{'accent-50':checkboxes[role.RoleID]}"
+             [@animate]="{value:'*',params:{y:'100%'}}">
+    </mat-row>
+</mat-table>
+
+

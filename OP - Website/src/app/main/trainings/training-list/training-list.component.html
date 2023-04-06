@@ -1,0 +1,118 @@
+<mat-table #table [dataSource]="dataSource"
+           [@animateStagger]="{value:'50'}">
+    <!-- Checkbox Column -->
+   
+    <ng-container matColumnDef="checkbox">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let training">
+            <mat-checkbox [(ngModel)]="checkboxes[training.TrainingMaterialID]" (ngModelChange)="onSelectedChange(training.TrainingMaterialID)"
+                          (click)="$event.stopPropagation()">
+            </mat-checkbox>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Avatar Column -->
+    <!-- <ng-container matColumnDef="avatar">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let training">
+            <img class="avatar" *ngIf="training.avatar" [alt]="training.name"
+                 [src]="training.avatar"/>
+        </mat-cell>
+    </ng-container> -->
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="TrainingSource">
+        <mat-header-cell *matHeaderCellDef>Source</mat-header-cell>
+        <mat-cell *matCellDef="let training">
+            <p class="text-truncate font-weight-600">{{training.TrainingSourceName}}</p>
+        </mat-cell>
+    </ng-container>
+
+    <!-- Email Column -->
+    <ng-container matColumnDef="TrainingMaterialName">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>Title</mat-header-cell>
+        <mat-cell *matCellDef="let training" fxHide fxShow.gt-sm>
+            <p class="email text-truncate">
+                {{training.TrainingMaterialName}}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="LinkURL">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-sm>URL</mat-header-cell>
+        <mat-cell *matCellDef="let training" fxHide fxShow.gt-sm>
+            <p class="email text-truncate">
+                {{training.LinkURL}}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+
+<!--     
+    <ng-container matColumnDef="createdby">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-md>Created by</mat-header-cell>
+        <mat-cell *matCellDef="let training" fxHide fxShow.gt-md>
+            <p class="phone text-truncate">
+                {{training.createdby}}
+            </p>
+        </mat-cell>
+    </ng-container>
+
+    
+    <ng-container matColumnDef="createdon">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-lg>Created on</mat-header-cell>
+        <mat-cell *matCellDef="let training" fxHide fxShow.gt-lg>
+            <p class="job-title text-truncate">
+                {{training.createdon}}
+            </p>
+        </mat-cell>
+    </ng-container> -->
+
+    <!-- Company Column -->
+    <!-- <ng-container matColumnDef="company">
+        <mat-header-cell *matHeaderCellDef fxHide fxShow.gt-lg>Company</mat-header-cell>
+        <mat-cell *matCellDef="let training" fxHide fxShow.gt-lg>
+            <p class="company text-truncate">
+                {{training.company}}
+            </p>
+        </mat-cell>
+    </ng-container> -->
+
+    <!-- Buttons Column -->
+    <ng-container matColumnDef="buttons">
+        <mat-header-cell *matHeaderCellDef></mat-header-cell>
+        <mat-cell *matCellDef="let training">
+            <div fxFlex="row" fxLayoutAlign="end center">
+                <!-- <button mat-icon-button (click)="$event.stopPropagation();toggleStar(training.id)" aria-label="Toggle star">
+                    <mat-icon class="amber-fg" *ngIf="user.starred.includes(training.id)">star</mat-icon>
+                    <mat-icon class="secondary-text" *ngIf="!user.starred.includes(training.id)">star_border</mat-icon>
+                </button> -->
+
+                <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
+                        (click)="$event.stopPropagation();">
+                    <mat-icon class="secondary-text">more_vert</mat-icon>
+                </button>
+
+                <mat-menu #moreMenu="matMenu">
+                    <button mat-menu-item aria-label="remove" (click)="deleteTraining(training)">
+                        <mat-icon>delete</mat-icon>
+                        <span>Remove</span>
+                    </button>
+                </mat-menu>
+            </div>
+
+        </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let training; columns: displayedColumns;"
+             class="training"
+             (click)="editTraining(training)"
+             [ngClass]="{'accent-50':checkboxes[training.id]}"
+             [@animate]="{value:'*',params:{y:'100%'}}">
+    </mat-row>
+
+</mat-table>
+
+
+

@@ -1,0 +1,173 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+
+        <mat-toolbar-row class="toolbar-bottom py-16" fxLayout="column" fxLayoutAlign="center center">
+            <img [src]="distributor.avatar" class="avatar distributor-avatar huge m-0"
+                 [alt]="distributor.name"/>
+            <div class="distributor-name mt-8">{{distributor.name}} {{distributor.lastName}}</div>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+       
+       
+        <div class="container">
+          <div class="row">
+            <div class="col">
+                <form [formGroup]="distributorForm">
+            
+
+
+
+
+
+                    
+                    <div fxLayout="row" fxLayoutAlign="start start" >
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Region</mat-label>
+                            
+                            <select matNativeControl formControlName="region" required>
+                              <option value="Region1">West</option>
+                              <option value="Region2">East</option>
+                              <option value="Region3">Central</option>
+                              <option value="Region4">Region4</option>
+                            </select>
+                          </mat-form-field>
+
+                         
+                    </div>
+        
+
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Company Name</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="cname" formControlName="cname" matInput>
+                        </mat-form-field>
+                    </div>
+
+
+
+                   
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Name</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="name" formControlName="name" matInput>
+                        </mat-form-field>
+                    </div>
+        
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Last Name</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="lastName" formControlName="lastName" matInput>
+                        </mat-form-field>
+                    </div>
+        
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Address</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="address" formControlName="address" matInput>
+                        </mat-form-field>
+                    </div>
+                   
+                   
+        
+                </form>
+            </div>
+            <div class="col">
+                <form [formGroup]="distributorForm">
+            
+
+                
+                   
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>City</mat-label>
+                            <mat-icon matSuffix class="secondary-text">work</mat-icon>
+                            <input name="city" formControlName="city" matInput>
+                        </mat-form-field>
+                    </div>
+        
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>State</mat-label>
+                            <mat-icon matSuffix class="secondary-text">phone</mat-icon>
+                            <input formControlName="state" matInput>
+                        </mat-form-field>
+                    </div>
+        
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Zip Code</mat-label>
+                            <mat-icon matSuffix class="secondary-text">phone</mat-icon>
+                            <input formControlName="zcode" matInput>
+                        </mat-form-field>
+                    </div>
+        
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Mobile Number</mat-label>
+                            <mat-icon matSuffix class="secondary-text">phone</mat-icon>
+                            <input name="phone" formControlName="phone" matInput type="phone">
+                        </mat-form-field>
+                    </div>
+        
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Email</mat-label>
+                            <mat-icon matSuffix class="secondary-text">email</mat-icon>
+                            <input name="email" formControlName="email" matInput type="email">
+                        </mat-form-field>
+                    </div>
+        
+                </form>
+            </div>
+          </div>
+        </div>
+        
+      
+        
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button *ngIf="action === 'edit'"
+                mat-button
+                class="mr-8"
+                (click)="matDialogRef.close(['delete',distributorForm])"
+                aria-label="Delete"
+                matTooltip="Delete">
+            DELETE
+        </button>
+
+        <button *ngIf="action !== 'edit'"
+                mat-button
+                class="save-button"
+                (click)="matDialogRef.close(distributorForm)"
+                [disabled]="distributorForm.invalid"
+                aria-label="SAVE">
+            ADD
+        </button>
+
+        <button *ngIf="action === 'edit'"
+                mat-button
+                class="save-button"
+                (click)="matDialogRef.close(['save',distributorForm])"
+                [disabled]="distributorForm.invalid"
+                aria-label="SAVE">
+            SAVE
+        </button>
+
+    </div>
+</div>

@@ -1,0 +1,142 @@
+<div id="distributors" class="page-layout simple left-sidebar inner-sidebar inner-scroll">
+
+    <!-- HEADER -->
+    <div class="header accent p-16 p-sm-24 " fxLayout="column" fxLayoutAlign="start"
+         fxLayout.gt-xs="row" fxLayoutAlign.gt-xs="space-between center">
+
+        <!-- APP TITLE -->
+        <div fxLayout="row" fxLayoutAlign="start center">
+
+            <button mat-icon-button class="sidebar-toggle mr-12" fxHide.gt-sm
+                    (click)="toggleSidebar('distributors-main-sidebar')">
+                <mat-icon>menu</mat-icon>
+            </button>
+
+            <div class="logo" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon mr-16"
+                          [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">perm_contact_calendar
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Distributors
+                </span>
+            </div>
+
+        </div>
+        <!-- / APP TITLE -->
+       
+
+
+
+
+        <!-- SEARCH -->
+        <div class="ml-sm-32" fxLayout="row" fxLayoutAlign="center center" fxFlex>
+
+
+
+
+            <div class="search-wrapper mt-16 mt-sm-0">
+                
+                <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center" [style.color]="'gray'">
+
+                   
+
+                   
+
+                    <form-field  fxFlex>
+                        <label [style.color]="'gray'" ></label>
+                        <select matNativeControl [(ngModel)]="department" required>
+                            <option value="0">ALL</option>
+                          <option value="dep1">Operations</option>
+                          <option value="dep2">Sales Management</option>
+                          <option value="dep3">Engineering</option>
+                          <option value="dep4">Quality</option>
+                        </select>
+                      </form-field>
+
+                      <mat-icon  matSuffix  [style.color]="'gray'">arrow_drop_down</mat-icon>
+                </div>
+
+            </div>
+           
+
+        </div>
+
+        <div class="ml-sm-32" fxLayout="row" fxLayoutAlign="center center" fxFlex>
+
+
+
+
+           
+            <div class="search-wrapper mt-16 mt-sm-0">
+                
+                <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center" style="background: white;color:blue;">
+
+                   
+                    <mat-icon  matSuffix  [style.color]="'gray'">search</mat-icon>
+                    <mat-form-field  floatLabel="always" class="course-search">
+                        <mat-label>Search for a course</mat-label>
+                        
+                        <input matInput placeholder="Enter a keyword...">
+                    </mat-form-field>
+
+
+
+
+
+                     
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+
+        <!-- / SEARCH -->
+
+    </div>
+    <!-- / HEADER -->
+
+    <!-- SELECTED BAR -->
+    <selected-bar class="accent-600" *ngIf="hasSelectedDistributors" [@slideInTop]></selected-bar>
+    <!-- / SELECTED BAR -->
+
+    <!-- CONTENT -->
+    <div class="content">
+
+        <!-- SIDEBAR -->
+        <!-- <fuse-sidebar class="sidebar" name="distributors-main-sidebar" position="left" lockedOpen="gt-sm">
+
+            
+            <div class="content" fusePerfectScrollbar>
+                <distributors-main-sidebar [@animate]="{value:'*'}"></distributors-main-sidebar>
+            </div>
+            
+
+        </fuse-sidebar> -->
+        <!-- / SIDEBAR -->
+
+        <!-- CENTER -->
+        <div class="center p-24 pb-56 pr-sm-92" fusePerfectScrollbar>
+
+            <!-- CONTENT -->
+            <div class="content">
+                <distributors-distributor-list></distributors-distributor-list>
+            </div>
+            <!-- / CONTENT -->
+
+        </div>
+        <!-- / CENTER -->
+
+    </div>
+    <!-- / CONTENT-->
+
+</div>
+
+<!-- ADD CONTACT BUTTON -->
+<button mat-fab class="accent" id="add-distributor-button" (click)="newDistributor()" aria-label="add distributor"
+        [@animate]="{value:'*', params:{delay:'300ms',scale:'.2'}}">
+    <mat-icon>person_add</mat-icon>
+</button>
+<!-- / ADD CONTACT BUTTON -->

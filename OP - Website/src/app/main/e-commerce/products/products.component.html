@@ -1,0 +1,227 @@
+<div id="products" class="page-layout carded fullwidth inner-scroll">
+
+    <!-- TOP BACKGROUND -->
+    <div class="top-bg accent"></div>
+    <!-- / TOP BACKGROUND -->
+
+    <!-- CENTER -->
+    <div class="center">
+
+        <!-- HEADER -->
+        <div class="header accent" fxLayout="column" fxLayoutAlign="center center" fxLayout.gt-sm="row"
+            fxLayoutAlign.gt-sm="space-between center">
+
+            <!-- APP TITLE -->
+            <div class="logo mb-24 mb-md-0" fxLayout="row" fxLayoutAlign="start center">
+                <mat-icon class="logo-icon s-32 mr-16" [@animate]="{value:'*',params:{delay:'50ms',scale:'0.2'}}">
+                    shopping_basket
+                </mat-icon>
+                <span class="logo-text h1" [@animate]="{value:'*',params:{delay:'100ms',x:'-25px'}}">
+                    Products
+                </span>
+            </div>
+            <!-- / APP TITLE -->
+
+            <!-- SEARCH -->
+            <div class="search-wrapper mx-16 mx-md-0" [style.color]="'gray'">
+                <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center" [style.color]="'gray'">
+
+
+                    <mat-select [style.color]="'gray'" [(ngModel)]="selectedCategoriesSearch"
+                        (selectionChange)="OnBrandChange(selectedCategoriesSearch)" multiple>
+                        <mat-option [value]="-1">All Brands</mat-option>
+                        <mat-option *ngFor="let data of BrandListItems" [value]="data.BrandID">
+                            {{ data.BrandName }}</mat-option>
+                    </mat-select>
+                </div>
+            </div>
+
+            <div class="search-wrapper mx-16 mx-md-0" [style.color]="'gray'">
+                <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center" [style.color]="'gray'">
+
+
+                    <mat-select [style.color]="'gray'" [(ngModel)]="selectedSystemSearch"
+                        (selectionChange)="OnSystemChange(selectedSystemSearch)" multiple>
+                        <mat-option [value]="-1">All System</mat-option>
+                        <mat-option *ngFor="let data of SystemListItems" [value]="data.SystemID">
+                            {{ data.SystemName }}</mat-option>
+                    </mat-select>
+                </div>
+            </div>
+
+
+
+            <div class="search-wrapper mx-16 mx-md-0">
+                <div class="search" fxFlex fxLayout="row" fxLayoutAlign="start center"
+                    style="background: white;color:gray;">
+                    <mat-icon>search</mat-icon>
+                    <input #filter placeholder="Search Product">
+                </div>
+            </div>
+
+
+            <!-- / SEARCH -->
+
+            <!-- ADD BUTTON -->
+            <button mat-raised-button [routerLink]="'/products/new'" class="add-product-button fuse-white mt-24 mt-md-0"
+                style="display:none">
+                <span>ADD NEW</span>
+            </button>
+            <!-- / ADD BUTTON -->
+
+        </div>
+
+
+
+
+        <!-- / HEADER -->
+
+        <!-- CONTENT CARD -->
+        <div class="content-card">
+
+            <mat-table class="products-table" #table [dataSource]="dataSource" matSort [@animateStagger]="{value:'50'}"
+                fusePerfectScrollbar>
+
+
+                <ng-container matColumnDef="ProductID">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>ID</mat-header-cell>
+                    <mat-cell *matCellDef="let product">
+                        <p class="text-truncate">{{product.ProductID}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Image Column -->
+                <ng-container matColumnDef="image">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let product">
+                        <img class="avatar" *ngIf="product.ThumbnailURL" [alt]="product.ProductName"
+                            [src]="product.ThumbnailURL" disabled />
+
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Name Column -->
+                <ng-container matColumnDef="name">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Product Name</mat-header-cell>
+                    <mat-cell *matCellDef="let product">
+                        <p class="text-truncate">{{product.ProductName}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="category">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Brand</mat-header-cell>
+                    <mat-cell *matCellDef="let product">
+                        <p class="text-truncate">{{product.BrandName}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="system">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>System</mat-header-cell>
+                    <mat-cell *matCellDef="let product">
+                        <p class="text-truncate">{{product.SystemName}}</p>
+                    </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="ResourceCount">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Resource Count</mat-header-cell>
+                    <mat-cell *matCellDef="let product">
+                        <p class="text-truncate">{{product.ResourceCount}}</p>
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="TrainingMaterialCount">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Training Material Count</mat-header-cell>
+                    <mat-cell *matCellDef="let product">
+                        <p class="text-truncate">{{product.TrainingMaterialCount}}</p>
+                    </mat-cell>
+                </ng-container>
+
+
+
+
+
+                <!-- Price Column -->
+                <ng-container matColumnDef="price">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Surg. Tech</mat-header-cell>
+                    <mat-cell *matCellDef="let product" fxHide fxShow.gt-xs>
+                        <span class="quantity-indicator text-truncate"
+                            [ngClass]="{'green-500':product.quantity <= 5, 'amber-500':product.quantity > 5 && product.quantity <= 25,'red-600':product.quantity > 25}">
+                        </span>
+
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Quantity Column -->
+                <ng-container matColumnDef="quantity">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>510K</mat-header-cell>
+                    <mat-cell *matCellDef="let product" fxHide fxShow.gt-sm>
+
+                        <span class="quantity-indicator text-truncate"
+                            [ngClass]="{'red-500':product.quantity <= 5, 'amber-500':product.quantity > 5 && product.quantity <= 25,'green-600':product.quantity > 25}">
+                        </span>
+
+                    </mat-cell>
+                </ng-container>
+
+                <ng-container matColumnDef="ifu">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-sm>IFU</mat-header-cell>
+                    <mat-cell *matCellDef="let product" fxHide fxShow.gt-sm>
+
+                        <span class="quantity-indicator text-truncate"
+                            [ngClass]="{'red-500':product.quantity <= 5, 'amber-500':product.quantity > 5 && product.quantity <= 25,'green-600':product.quantity > 25}">
+                        </span>
+
+
+                    </mat-cell>
+                </ng-container>
+
+                <!-- Active Column -->
+                <!-- <ng-container matColumnDef="active">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxHide fxShow.gt-xs>Active</mat-header-cell>
+                    <mat-cell *matCellDef="let product" fxHide fxShow.gt-xs>
+                        <mat-icon *ngIf="product.active" class="active-icon green-600 s-16">check</mat-icon>
+                        <mat-icon *ngIf="!product.active" class="active-icon red-500 s-16">close</mat-icon>
+                    </mat-cell>
+                </ng-container> -->
+
+
+                <ng-container matColumnDef="active">
+                    <mat-header-cell *matHeaderCellDef></mat-header-cell>
+                    <mat-cell *matCellDef="let product">
+                        <div fxFlex="row" fxLayoutAlign="end center">
+
+                            <button mat-icon-button [matMenuTriggerFor]="moreMenu" aria-label="More"
+                                (click)="$event.stopPropagation();">
+                                <mat-icon class="secondary-text">more_vert</mat-icon>
+                            </button>
+
+                            <mat-menu #moreMenu="matMenu">
+                                <button mat-menu-item aria-label="remove" (click)="deleteproduct(product)">
+                                    <mat-icon>delete</mat-icon>
+                                    <span>Remove</span>
+                                </button>
+                            </mat-menu>
+                        </div>
+
+                    </mat-cell>
+                </ng-container>
+
+
+                <mat-header-row *matHeaderRowDef="displayedColumns; sticky:true"></mat-header-row>
+
+                <mat-row *matRowDef="let product; columns: displayedColumns;" class="product" matRipple
+                    [routerLink]="'/products/'+product.ProductID">
+
+                    <!-- [routerLink]="'/products/'+product.id+'/'+product.handle" -->
+                </mat-row>
+
+            </mat-table>
+
+            <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]">
+            </mat-paginator>
+
+        </div>
+        <!-- / CONTENT CARD -->
+    </div>
+    <!-- / CENTER -->
+</div>

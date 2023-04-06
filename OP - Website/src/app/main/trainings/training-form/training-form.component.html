@@ -1,0 +1,149 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+
+        <!-- <mat-toolbar-row class="toolbar-bottom py-16" fxLayout="column" fxLayoutAlign="center center">
+            <img [src]="training.avatar" class="avatar training-avatar huge m-0"
+                 [alt]="training.name"/>
+            <div class="training-name mt-8">{{training.name}} {{training.lastName}}</div>
+        </mat-toolbar-row> -->
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0 " fusePerfectScrollbar>
+
+        <div fxFlex="1 0 auto" fxLayout="column" fxLayout.gt-xs="row">
+            <div fxFlex="50">
+                <form [formGroup]="trainingForm">
+
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex="100">
+                            <mat-label>Source</mat-label>
+                            <mat-select formControlName="TrainingSourceID" required>
+                                <mat-option *ngFor="let data of SourceListItems" [value]="data.TrainingSourceID">{{
+                                    data.TrainingSourceName }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Title</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="TrainingMaterialName" formControlName="TrainingMaterialName" matInput required>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start start">
+
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>URL</mat-label>
+                            <textarea matInput formControlName="LinkURL" required>
+                                </textarea>
+                        </mat-form-field>
+                    </div>
+
+                    <div fxLayout="row" fxLayoutAlign="start start">
+
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Keywords</mat-label>
+                            <mat-chip-list #chipList aria-label="Keyword selection" formControlName="Keywords">
+                                <mat-chip *ngFor="let item of training.Keywords" [selectable]="selectable"
+                                    [removable]="removable" (removed)="remove(item)">
+                                    {{item.Keyword}}
+                                    <mat-icon matChipRemove *ngIf="removable">cancel</mat-icon>
+                                </mat-chip>
+                                <input placeholder="New Keyword..." [matChipInputFor]="chipList"
+                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                    [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)" required>
+                            </mat-chip-list>
+
+
+                            <!-- <mat-chip-list #keywordList name="Keywords" formControlName="Keywords">
+                                <mat-chip *ngFor="let keyw of training.Keywords"
+                                      [removable]="true" (removed)="training.removeKeyword(keyw)">
+                                {{keyw.Keywords}}
+                                <mat-icon matChipRemove>cancel</mat-icon>
+                            </mat-chip>
+    
+                            <input [matChipInputFor]="keywordList"
+                                   [matChipInputAddOnBlur]="true"
+                                   (matChipInputTokenEnd)="training.addKeyword($event)"/>
+    
+                        </mat-chip-list>  -->
+                        </mat-form-field>
+                    </div>
+
+
+                </form>
+            </div>
+            <div fxFlex="50">
+                <form [formGroup]="trainingForm">
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex="100">
+                            <mat-label>Select Category </mat-label>
+                            <mat-select formControlName="CategoryID" required
+                                (selectionChange)="onCategoryChange($event)">
+                                <mat-option *ngFor="let data of CategoryListItems" [value]="data.CategoryID">{{
+                                    data.CategoryName }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                </form>
+
+                <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                    <!-- This is the tree node template for leaf nodes -->
+                    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+                        <!-- use a disabled button to provide padding for tree leaf -->
+                        <button mat-icon-button disabled></button>
+                        <!-- {{node.name}} -->
+                        <mat-checkbox class="checklist-leaf-node" [checked]="checklistSelection.isSelected(node)"
+                            (change)="todoLeafItemSelectionToggle(node)">{{node.Name}}</mat-checkbox>
+                    </mat-tree-node>
+                    <!-- This is the tree node template for expandable nodes -->
+                    <mat-tree-node *matTreeNodeDef="let node;when: hasChild" matTreeNodePadding>
+                        <button mat-icon-button matTreeNodeToggle [attr.aria-label]="'toggle ' + node.Name">
+                            <mat-icon class="mat-icon-rtl-mirror">
+                                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                            </mat-icon>
+                        </button>
+                        <!-- {{node.name}} -->
+
+                        <mat-checkbox [checked]="descendantsAllSelected(node)"
+                            [indeterminate]="descendantsPartiallySelected(node)"
+                            (change)="todoItemSelectionToggle(node)">{{node.Name}}</mat-checkbox>
+                    </mat-tree-node>
+                </mat-tree>
+            </div>
+
+
+
+        </div>
+
+
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button *ngIf="action === 'edit'" mat-button class="mr-8" (click)="matDialogRef.close()" aria-label="CANCEL"
+            matTooltip="CANCEL">
+            CANCEL
+        </button>
+
+        <button *ngIf="action !== 'edit'" mat-button class="save-button" (click)="saveTrainings()"
+            (click)="matDialogRef.close()" [disabled]="true" aria-label="SAVE">
+            ADD
+        </button>
+
+        <button *ngIf="action === 'edit'" mat-button class="save-button" (click)="saveTrainings()"
+            (click)="matDialogRef.close()" [disabled]="true" aria-label="SAVE">
+            SAVE
+        </button>
+        <!-- [disabled]="trainingForm.invalid" -->
+    </div>
+</div>

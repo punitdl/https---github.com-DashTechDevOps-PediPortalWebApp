@@ -1,0 +1,227 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+
+        <mat-toolbar-row class="toolbar-bottom py-16" fxLayout="column" fxLayoutAlign="center center">
+            <img [src]="contact.PhotoURL" class="avatar contact-avatar huge m-0"
+                 [alt]="contact.FirstName"/>
+            <div class="contact-name mt-8">{{contact.FirstName}} {{contact.LastName}}</div>
+            <input style="display: none" type="file" (change)="onFileChanged($event)" #fileInput>
+            <button *ngIf="action === 'edit'" mat-raised-button (click)="fileInput.click()"
+                class="mt-24 mt-md-0 avatareditupload">
+                <mat-icon matSuffix class="secondary-text">edit</mat-icon>
+      
+            </button>
+
+            <button style="display: none;" (click)="onUpload()">Upload!</button>
+
+            <!-- <input matInput placeholder="Product Name" style="display: none;" name="name" formControlName="url"
+                required> -->
+        </mat-toolbar-row>
+
+       
+         
+            
+
+
+  
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+       
+       
+        <div class="container">
+          <div class="row">
+            <div class="col">
+                <form [formGroup]="contactForm">
+            
+
+                    <div fxLayout="row" fxLayoutAlign="start start" >
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Department</mat-label>
+                            
+                            <mat-select formControlName="DepartmentID" required>
+                                <mat-option *ngFor="let data of DepartmentListItems" [value]="data.DepartmentID">
+                                    {{ data.DepartmentName }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+
+                          <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+                            <button *ngIf="action !== 'edit'"
+                            mat-button
+                            class="save-button"
+                            (click)="matDialogRef.close(contactForm)"
+                            
+                            aria-label="SAVE">
+                            <mat-icon matSuffix class="secondary-text">edit</mat-icon>
+                    </button>
+
+
+
+
+
+                            
+                          
+                          <button *ngIf="action === 'edit'"
+                mat-button
+                class="mr-8"
+                (click)="matDialogRef.close(contactForm)"
+                aria-label="Edit"
+                matTooltip="Edit">
+                <mat-icon matSuffix class="secondary-text">edit</mat-icon>
+        </button></div>
+                    </div>
+                    <div fxLayout="row" fxLayoutAlign="start start" >
+
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Team Name</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="TeamName" formControlName="TeamName" matInput readonly="true">
+                        </mat-form-field>
+                       
+                    </div>
+                    <!-- <div fxLayout="row" fxLayoutAlign="start start" >
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Team</mat-label>
+                            
+                            <mat-select formControlName="TeamID" required>                         
+                                <mat-option *ngFor="let data of TeamListItems" [value]="data.TeamID">
+                                    {{ data.TeamName }}</mat-option>
+                            </mat-select>
+                          </mat-form-field>
+                          <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+                            <button *ngIf="action === 'edit'"
+                  mat-button
+                  class="mr-8"
+                  (click)="matDialogRef.close(contactForm)"
+                  aria-label="Edit"
+                  matTooltip="Edit">
+                  <mat-icon matSuffix class="secondary-text">edit</mat-icon>
+          </button>
+                         
+
+                            <button *ngIf="action !== 'edit'"
+                            mat-button
+                            class="save-button"
+                            (click)="matDialogRef.close(contactForm)"
+                            
+                            aria-label="SAVE">
+                            <mat-icon matSuffix class="secondary-text">edit</mat-icon>
+                    </button></div>
+
+
+
+
+
+                           
+                    </div> -->
+        
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>First Name</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="FirstName" formControlName="FirstName" matInput readonly="true">
+                        </mat-form-field>
+                    </div>
+        
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Last Name</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="LastName" formControlName="LastName" matInput readonly="true">
+                        </mat-form-field>
+                    </div>
+        
+                   
+                   
+                   
+        
+                </form>
+            </div>
+            <div class="col">
+                <form [formGroup]="contactForm">
+            
+
+                
+                   
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Job Title</mat-label>
+                            <mat-icon matSuffix class="secondary-text">work</mat-icon>
+                            <input name="JobTitle" formControlName="JobTitle" matInput readonly="true">
+                        </mat-form-field>
+                    </div>
+        
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Business Number</mat-label>
+                            <mat-icon matSuffix class="secondary-text">phone</mat-icon>
+                            <input formControlName="MobileNo" matInput readonly="true">
+                        </mat-form-field>
+                    </div>
+        
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Phone</mat-label>
+                            <mat-icon matSuffix class="secondary-text">phone</mat-icon>
+                            <input formControlName="PhoneNo" matInput readonly="true">
+                        </mat-form-field>
+                    </div>
+        
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex>
+                            <mat-label>Email</mat-label>
+                            <mat-icon matSuffix class="secondary-text">email</mat-icon>
+                            <input name="EMailID" formControlName="EMailID" matInput type="email" readonly="true">
+                        </mat-form-field>
+                    </div>      
+                   
+        
+                </form>
+            </div>
+          </div>
+        </div>
+        
+      
+        
+
+    </div>
+
+    <div mat-dialog-actions class="m-0 p-16" fxLayout="row" fxLayoutAlign="end center">
+
+        <button *ngIf="action === 'edit'"
+                mat-button
+                class="mr-8"
+                (click)="matDialogRef.close()"
+                aria-label="CANCEL"
+                matTooltip="CANCEL">
+                CANCEL
+        </button>
+
+        <button *ngIf="action !== 'edit'"
+                mat-button
+                class="save-button"
+                (click)="matDialogRef.close(contactForm)"
+                [disabled]="contactForm.invalid"
+                aria-label="SAVE">
+            ADD
+        </button>
+
+        <button *ngIf="action === 'edit'"
+                mat-button
+                class="save-button"
+                (click)="matDialogRef.close(['save',contactForm])"
+                [disabled]="contactForm.invalid"
+                aria-label="SAVE" style="display: none;">
+            SAVE
+        </button>
+
+    </div>
+</div>

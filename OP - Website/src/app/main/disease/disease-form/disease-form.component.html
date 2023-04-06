@@ -1,0 +1,150 @@
+<div class="dialog-content-wrapper">
+    <mat-toolbar matDialogTitle class="mat-accent m-0">
+        <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between center">
+            <span class="title dialog-title">{{dialogTitle}}</span>
+            <button mat-icon-button (click)="matDialogRef.close()" aria-label="Close dialog">
+                <mat-icon>close</mat-icon>
+            </button>
+        </mat-toolbar-row>
+
+    </mat-toolbar>
+
+    <div mat-dialog-content class="p-24 pb-0 m-0" fusePerfectScrollbar>
+
+        <div fxFlex="1 0 auto" fxLayout="column" fxLayout.gt-xs="row" >
+            <div fxFlex="100">
+                <form [formGroup]="diseaseForm">
+                   
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex="50">
+                            <mat-label>Source</mat-label>
+                            <mat-select  formControlName="categoryid" required>
+                                <mat-option *ngFor="let data of SourceListItems"
+                                                    [value]="data.categoryid" >{{ data.desc }}</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                     
+                        <mat-form-field appearance="outline" fxFlex="50">
+                            <mat-label>Title</mat-label>
+                            <mat-icon matSuffix class="secondary-text">account_circle</mat-icon>
+                            <input name="lastName" formControlName="name" matInput>
+                        </mat-form-field>
+                    </div>
+                   
+                  
+                    <div fxLayout="row" fxLayoutAlign="start start">
+                        <mat-form-field appearance="outline" fxFlex="50">
+                            <mat-label>URL</mat-label>
+                                <textarea matInput formControlName="avatar" required>
+                                </textarea>
+                        </mat-form-field>
+                   
+                  
+                   
+                        
+                        <mat-form-field appearance="outline" fxFlex="50">
+                            <mat-label>Keywords</mat-label>
+                            <mat-chip-list #keywordList name="keywords" formControlName="keywords">
+                                <mat-chip *ngFor="let keyw of disease.keywords"
+                                      [removable]="true" (removed)="disease.removeKeyword(keyw)">
+                                {{keyw}}
+                                <mat-icon matChipRemove>cancel</mat-icon>
+                            </mat-chip>
+    
+                            <input [matChipInputFor]="keywordList"
+                                   [matChipInputAddOnBlur]="true"
+                                   (matChipInputTokenEnd)="disease.addKeyword($event)"/>
+    
+                        </mat-chip-list>
+                        </mat-form-field>
+                    </div>
+             
+                   
+      
+              
+          
+                <div fxLayout="row" fxLayoutAlign="start start">
+                    <mat-form-field appearance="outline" fxFlex="50">
+                        <mat-label>Select Category </mat-label>
+                        <mat-select  formControlName="categoryname" required>
+                            <mat-option *ngFor="let data of CategoryListItems"
+                                                [value]="data.id" >{{ data.desc }}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                 </div>
+                  
+                <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+                    <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
+                      <button mat-icon-button disabled></button>
+                      <mat-checkbox class="checklist-leaf-node"
+                                    [checked]="checklistSelection.isSelected(node)"
+                                    (click)= "training.addKeywordtree(node.item,node.item)"
+                                    (change)="todoLeafItemSelectionToggle(node)">{{node.item}}</mat-checkbox>
+                    </mat-tree-node>
+                  
+                    <mat-tree-node *matTreeNodeDef="let node; when: hasNoContent" matTreeNodePadding>
+                      <button mat-icon-button disabled></button>
+                      <mat-form-field>
+                        <mat-label>New item...</mat-label>
+                        <input matInput #itemValue placeholder="Ex. Lettuce">
+                      </mat-form-field>
+                      <button mat-button (click)="saveNode(node, itemValue.value)">Save</button>
+                    </mat-tree-node>
+                  
+                    <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+                      <button mat-icon-button matTreeNodeToggle
+                              [attr.aria-label]="'toggle ' + node.filename">
+                        <mat-icon class="mat-icon-rtl-mirror">
+                          {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                        </mat-icon>
+                      </button>
+                      <mat-checkbox [checked]="descendantsAllSelected(node)"
+                                    [indeterminate]="descendantsPartiallySelected(node)"
+                                    (change)="todoItemSelectionToggle(node)">{{node.item}}</mat-checkbox>
+                      <!-- <button mat-icon-button (click)="addNewItem(node)"><mat-icon>add</mat-icon></button> -->
+                    </mat-tree-node>
+                  </mat-tree>
+
+           
+                  
+        </form>
+        <div mat-dialog-actions class="m-0 p-24" fxLayout="row" fxLayoutAlign="end center">
+
+            <button *ngIf="action === 'edit'"
+                    mat-button
+                    class="mr-8"
+                    (click)="matDialogRef.close(['delete',diseaseForm])"
+                    aria-label="Delete"
+                    matTooltip="Delete">
+                DELETE
+            </button>
+    
+            <button *ngIf="action !== 'edit'"
+                    mat-button
+                    class="save-button"
+                    (click)="matDialogRef.close(diseaseForm)"
+                    [disabled]="diseaseForm.invalid"
+                    aria-label="SAVE">
+                ADD
+            </button>
+    
+            <button *ngIf="action === 'edit'"
+                    mat-button
+                    class="save-button"
+                    (click)="matDialogRef.close(['save',diseaseForm])"
+                    [disabled]="diseaseForm.invalid"
+                    aria-label="SAVE">
+                SAVE
+            </button>
+    
+        </div>
+   
+        </div>
+       
+
+        
+
+    </div>
+
+   
+</div>

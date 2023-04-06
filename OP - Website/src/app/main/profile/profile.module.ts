@@ -1,0 +1,38 @@
+import { NgModule } from '@angular/core';
+import { RouterModule } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatInputModule } from '@angular/material/input';
+
+import { FuseSharedModule } from '@fuse/shared.module';
+import { ProfileComponent } from './profile.component';
+
+
+
+
+const routes = [
+    {
+        path     : 'profile',
+        component: ProfileComponent
+    }
+];
+
+@NgModule({
+    declarations: [
+        ProfileComponent
+    ],
+    imports     : [
+        RouterModule.forChild(routes),
+
+        MatButtonModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+
+        FuseSharedModule
+    ]
+})
+export class ProfileModule
+{
+}
