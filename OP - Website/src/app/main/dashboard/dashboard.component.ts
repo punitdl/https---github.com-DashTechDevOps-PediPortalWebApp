@@ -471,25 +471,12 @@ export class DashboardComponent implements OnInit {
   }
 
   GetRangeFilter() {
-    const RepInputData = [];
-    var RepInput = { "UserID": sessionStorage.getItem('UserID'), "Device": "D" };
-    RepInputData.push(RepInput);
-    const inputdata = {
-      "MethodName": "GetRangeFilter",
-      "InputStr": RepInputData
-    }
-
-    this._LoginService.CommonInvokeData(inputdata).then((data) => {
-      var myObjStr1 = data.Table[0]["JSON_F52E2B61-18A1-11d1-B105-00805F49916B"];
-      var jsonobj1 = JSON.parse(myObjStr1);
-      if (jsonobj1.Result[0]["ErrorID"] > 0) {
-        var jsonStr2 = "";
-        for (let i = 0; i < data["Table1"].length; i++) {
-          jsonStr2 += data["Table1"][i]["JSON_F52E2B61-18A1-11d1-B105-00805F49916B"];
-        }
-        var jsonobj2 = JSON.parse(jsonStr2);
-
-        this.GetRangeFilterListItems = jsonobj2.Result;
+    debugger;
+    this._DashboardService.GetRangeFilter().then((data) => {
+      debugger;
+      if (data.meta.status) {
+       
+        this.GetRangeFilterListItems =data.data;
         this.LoadDashboardContent("1")
       }
       else {

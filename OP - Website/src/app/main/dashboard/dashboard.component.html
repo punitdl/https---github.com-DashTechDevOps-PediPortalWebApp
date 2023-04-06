@@ -57,7 +57,7 @@
                 <button mat-button class="px-16" *ngFor="let range of GetRangeFilterListItems "
                     (click)="LoadDashboardContent(range.key)"
                     [ngClass]="{'accent' : RangeFilterSelection == range.key}">
-                    {{range.RangeFilterName}}
+                    {{range.rangeFilterName}}
                 </button>
             </div>
 

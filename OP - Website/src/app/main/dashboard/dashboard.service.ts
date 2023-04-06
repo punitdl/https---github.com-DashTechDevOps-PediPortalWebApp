@@ -51,5 +51,13 @@ export class DashboardService implements Resolve<any>
         });
       }
     
+      GetRangeFilter(): Promise<any>{
+        return new Promise((resolve, reject) => {
+          this.apiClient.get('api/range/getrangefilters').subscribe((rangeFilters) => {
+            resolve(rangeFilters);
+          }, reject);
+         
+        });
+      }
 
 }
